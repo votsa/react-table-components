@@ -1,0 +1,33 @@
+{
+  "parser": "babel-eslint",
+
+  "extends": "airbnb",
+
+  "plugins": [
+    "react",
+  ],
+
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true,
+    },
+  },
+
+  "env": {
+    "browser": true,
+    "node": true,
+    "jasmine": true,
+    "es6": true,
+  },
+
+  "rules": {
+    "no-plusplus": ["error", {
+      "allowForLoopAfterthoughts": true
+    }],
+    "react/forbid-prop-types": ["error", {
+      "forbid": []
+    }]
+  }
+}

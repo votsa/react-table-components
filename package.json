@@ -1,0 +1,55 @@
+{
+  "name": "react-table-components",
+  "version": "0.0.1",
+  "description": "React components for rendering table data",
+  "author": "Vladimir Kolebidenko",
+  "license": "MIT",
+  "keywords": [
+    "react",
+    "table"
+  ],
+  "main": "./lib/index",
+  "files": [
+    "styles",
+    "lib",
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "build": "npm run test && webpack --config webpack.config.prod.js && babel src -d lib",
+    "start": "webpack-dev-server -d --config examples/webpack.config.js",
+    "lint": "eslint src --ext js,jsx --fix; exit 0",
+    "test": "npm run lint && jest"
+  },
+  "dependencies": {
+    "lodash": "^4.17.4",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.23.0",
+    "babel-core": "^6.23.1",
+    "babel-eslint": "^7.2.1",
+    "babel-jest": "^18.0.0",
+    "babel-loader": "^6.3.0",
+    "babel-polyfill": "^6.23.0",
+    "babel-preset-env": "^1.1.8",
+    "babel-preset-es2015": "^6.22.0",
+    "babel-preset-react": "^6.23.0",
+    "babel-preset-stage-2": "^6.22.0",
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb": "^14.1.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^4.0.0",
+    "eslint-plugin-react": "^6.10.3",
+    "jest": "^18.1.0",
+    "lodash-webpack-plugin": "^0.11.2",
+    "webpack": "^2.2.1",
+    "webpack-dev-server": "^2.4.1"
+  },
+  "jest": {
+    "testPathDirs": [
+      "src"
+    ]
+  }
+}
