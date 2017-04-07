@@ -13,7 +13,6 @@ export default class Container extends Component {
     onColumnDrag: null,
     sortBy: null,
     className: null,
-    columnsVisible: null,
     generateRowProps: null,
     filters: null,
   }
@@ -27,7 +26,6 @@ export default class Container extends Component {
     onToggleColumnsVisibility: PropTypes.func.isRequired,
     onFilter: PropTypes.func.isRequired,
     columns: PropTypes.arrayOf(PropTypes.object).isRequired,
-    columnsVisible: PropTypes.arrayOf(PropTypes.number),
     sortBy: PropTypes.shape({
       prop: PropTypes.string,
       order: PropTypes.string,
@@ -45,9 +43,9 @@ export default class Container extends Component {
 
   render() {
     const {
-      keys, className, draggable, sortable, sortBy, columns, columnsVisible, onSort,
+      keys, className, draggable, sortable, sortBy, columns, onSort,
       payload, onChangePage, onPageSizeChange, onColumnDrag, onToggleColumnsVisibility,
-      filters, onFilter, generateRowProps,
+      filters, onFilter, generateRowProps, pageSizeOptions,
     } = this.props;
 
     return (
@@ -67,7 +65,6 @@ export default class Container extends Component {
           <div className="col-md-6">
             <ColumnsVisibility
               columns={columns}
-              columnsVisible={columnsVisible}
               onToggleColumnsVisibility={onToggleColumnsVisibility}
               btnText="Columns visibility"
               btnClassName="btn btn-default btn-sm"
@@ -83,12 +80,11 @@ export default class Container extends Component {
                   keys={keys}
                   className={className}
                   columns={columns}
-                  columnsVisible={columnsVisible}
                   dataArray={payload.data}
-                  draggable={draggable}
                   sortable={sortable}
-                  onSort={onSort}
                   sortBy={sortBy}
+                  onSort={onSort}
+                  draggable={draggable}
                   onColumnDrag={onColumnDrag}
                   generateRowProps={generateRowProps}
                 />
@@ -101,7 +97,7 @@ export default class Container extends Component {
             <PageSizeSelector
               onPageSizeChange={onPageSizeChange}
               perPage={payload.perPage}
-              pageSizeOptions={[5, 10, 50, 100]}
+              pageSizeOptions={pageSizeOptions}
               controlClassName="form-control"
             />
             <RecordsCounter

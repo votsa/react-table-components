@@ -146,14 +146,16 @@ export const dragColumn = (state, order) => {
  * @param {number|string} columnId - column's id
  */
 export const toggleColumnVisibility = (state, columnId) => {
-  const columnsVisible = [].concat(state.columnsVisible);
-  const index = columnsVisible.indexOf(columnId);
+  const columns = state.columns.map((col) => {
+    if (col.id === columnId) {
+      return {
+        ...col,
+        visible: !col.visible,
+      };
+    }
 
-  if (index === -1) {
-    columnsVisible.push(columnId);
-  } else {
-    columnsVisible.splice(index, 1);
-  }
+    return col;
+  });
 
-  return { columnsVisible };
+  return { columns };
 };

@@ -1,5 +1,3 @@
-'use strict';
-
 const path = require('path');
 const webpack = require('webpack');
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
@@ -13,7 +11,7 @@ module.exports = {
     libraryTarget: 'umd',
   },
   externals: {
-    'react': {
+    react: {
       root: 'React',
       amd: 'react',
       commonjs: 'react',
@@ -35,7 +33,7 @@ module.exports = {
     }]
   },
   resolve: {
-    extensions: ['.js', '.jsx', '.scss', '.css'],
+    extensions: ['.js', '.jsx', '.css'],
   },
   plugins: [
     new webpack.DefinePlugin({

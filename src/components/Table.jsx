@@ -24,7 +24,6 @@ export default class Table extends Component {
     onColumnDrag: null,
     sortBy: null,
     className: null,
-    columnsVisible: null,
     generateRowProps: null,
   }
 
@@ -39,7 +38,6 @@ export default class Table extends Component {
     onColumnDrag: PropTypes.func.isRequired,
     className: PropTypes.string,
     columns: PropTypes.arrayOf(PropTypes.object).isRequired,
-    columnsVisible: PropTypes.arrayOf(PropTypes.number),
     generateRowProps: PropTypes.func,
     dataArray: PropTypes.arrayOf(PropTypes.oneOfType([
       PropTypes.array,
@@ -220,10 +218,10 @@ export default class Table extends Component {
   }
 
   render() {
-    const { dataArray, columns, columnsVisible } = this.props;
+    const { dataArray, columns } = this.props;
 
     const headers = columns.map((col, index) => {
-      if (columnsVisible.indexOf(col.id) === -1) {
+      if (col.visible === false) {
         return null;
       }
 
@@ -250,7 +248,7 @@ export default class Table extends Component {
       return (
         <tr {...rowOptions}>
           {columns.map((col) => {
-            if (columnsVisible.indexOf(col.id) === -1) {
+            if (col.visible === false) {
               return null;
             }
 
@@ -274,7 +272,7 @@ export default class Table extends Component {
         <tbody>
           {rows.length ? rows :
           <tr>
-            <td colSpan={columnsVisible.length} className="no-data">No data</td>
+            <td colSpan={columns.filter(col => col.visible).length} className="no-data">No data</td>
           </tr>
           }
         </tbody>

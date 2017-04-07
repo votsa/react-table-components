@@ -12,6 +12,7 @@
 
 .rtc-table {
   margin: 0;
+  width: 100%;
 }
 
 .rtc-table th[draggable=true] {
@@ -37,6 +38,7 @@
   height: 0;
   position: absolute;
   right: 0;
+  cursor: pointer;
 }
 
 .rtc-table th.sortable span:after {
@@ -121,6 +123,10 @@
 
 .pagination {
   margin: 0;
+}
+
+.pagination li {
+  display: inline-block;
 }
 
 .pagination a {

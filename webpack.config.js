@@ -1,5 +1,3 @@
-'use strict';
-
 const path = require('path');
 const webpack = require('webpack');
 
@@ -8,11 +6,11 @@ module.exports = {
   output: {
     path: path.join(__dirname, 'dist'),
     filename: 'react-table-components.min.js',
-    library: 'ReacttableComponents',
+    library: 'ReactTableComponents',
     libraryTarget: 'umd',
   },
   externals: {
-    'react': {
+    react: {
       root: 'React',
       amd: 'react',
       commonjs: 'react',
@@ -34,7 +32,7 @@ module.exports = {
     }]
   },
   resolve: {
-    extensions: ['.js', '.jsx', '.scss', '.css'],
+    extensions: ['.js', '.jsx', '.css'],
   },
   plugins: [
     new webpack.DefinePlugin({

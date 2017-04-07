@@ -6,7 +6,6 @@ export default function dataTableEnhancer(WrappedComponent) {
     static defaultProps = {
       currentPage: 0,
       perPage: 10,
-      columnsVisible: null,
       sortBy: null,
       onDragColumn: null,
       onChangeColumnsVisibility: null,
@@ -16,7 +15,6 @@ export default function dataTableEnhancer(WrappedComponent) {
       perPage: PropTypes.number,
       currentPage: PropTypes.number,
       columns: PropTypes.arrayOf(PropTypes.object).isRequired,
-      columnsVisible: PropTypes.arrayOf(PropTypes.number),
       sortBy: PropTypes.shape({
         prop: PropTypes.string,
         order: PropTypes.string,
@@ -32,11 +30,18 @@ export default function dataTableEnhancer(WrappedComponent) {
     constructor(props) {
       super(props);
 
-      const { dataArray, columns, columnsVisible, sortBy, currentPage, perPage } = props;
+      const { dataArray, columns, sortBy, currentPage, perPage } = props;
 
       const initialState = {
-        columns,
-        columnsVisible: columnsVisible || columns.map(column => column.id),
+        columns: columns.map((col) => {
+          if (typeof col.visible === 'undefined') {
+            return {
+              ...col,
+              visible: true,
+            };
+          }
+          return col;
+        }),
         dataArray,
         filters: {
           globalSearch: '',
@@ -124,7 +129,7 @@ export default function dataTableEnhancer(WrappedComponent) {
         state => dataEnhancer.toggleColumnVisibility(state, columnId),
         () => {
           if (typeof onChangeColumnsVisibility === 'function') {
-            onChangeColumnsVisibility(this.state.columnsVisible);
+            onChangeColumnsVisibility(this.state.columns);
           }
         },
       );

@@ -18,14 +18,21 @@ const sortBy = {
 };
 
 const initialState = {
-  columns,
-  columnsVisible: columns.map(column => column.id),
   dataArray,
+  sortBy,
+  payload: {},
   filters: {
     globalSearch: '',
   },
-  payload: {},
-  sortBy,
+  columns: columns.map((col) => {
+    if (typeof col.visible === 'undefined') {
+      return {
+        ...col,
+        visible: true,
+      };
+    }
+    return col;
+  }),
 };
 
 describe('dataEnhancer', () => {
@@ -63,16 +70,20 @@ describe('dataEnhancer', () => {
   });
 
   it('toogles columns visibility', () => {
+    const colId = 1;
     const state = {
       ...initialState,
       payload: dataEnhancer.calculatePayload(initialState, { sortBy, currentPage: 0, perPage: 10 }),
     };
 
     const expected = {
-      columnsVisible: [2],
+      columns: [
+        { id: 1, title: 'First name', prop: 'first_name', visible: false },
+        { id: 2, title: 'Last name', prop: 'last_name', visible: true },
+      ],
     };
 
-    expect(dataEnhancer.toggleColumnVisibility(state, 1)).toEqual(expected);
+    expect(dataEnhancer.toggleColumnVisibility(state, colId)).toEqual(expected);
   });
 
   it('drags column', () => {
@@ -83,8 +94,8 @@ describe('dataEnhancer', () => {
 
     const expected = {
       columns: [
-        { id: 2, title: 'Last name', prop: 'last_name' },
-        { id: 1, title: 'First name', prop: 'first_name' },
+        { id: 2, title: 'Last name', prop: 'last_name', visible: true },
+        { id: 1, title: 'First name', prop: 'first_name', visible: true },
       ],
     };
 

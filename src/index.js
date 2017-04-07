@@ -5,4 +5,4 @@ export { default as Pagination } from './components/Pagination';
 export { default as PageSizeSelector } from './components/PageSizeSelector';
 export { default as ColumnsVisibility } from './components/ColumnsVisibility';
 export { default as tableEnhancer } from './tableEnhancer';
-export { default as DataTable } from './components/DataTable';
+export { default as TableComponents } from './components/TableComponents';

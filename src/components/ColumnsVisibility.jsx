@@ -4,7 +4,6 @@ export default class ColumnsVisibility extends Component {
   static defaultProps = {
     btnClassName: '',
     iconClassName: '',
-    columnsVisible: null,
     btnText: 'Columns',
   }
 
@@ -12,7 +11,6 @@ export default class ColumnsVisibility extends Component {
     btnClassName: PropTypes.string,
     btnText: PropTypes.string,
     columns: PropTypes.arrayOf(PropTypes.object).isRequired,
-    columnsVisible: PropTypes.arrayOf(PropTypes.number),
     iconClassName: PropTypes.string,
     onToggleColumnsVisibility: PropTypes.func.isRequired,
   }
@@ -51,7 +49,7 @@ export default class ColumnsVisibility extends Component {
 
   render() {
     const {
-      columns, columnsVisible, onToggleColumnsVisibility,
+      columns, onToggleColumnsVisibility,
       btnClassName, iconClassName, btnText,
     } = this.props;
 
@@ -72,7 +70,7 @@ export default class ColumnsVisibility extends Component {
               <label htmlFor={`col-visibility-${col.id}`}>
                 <input
                   type="checkbox"
-                  checked={columnsVisible ? columnsVisible.indexOf(col.id) !== -1 : true}
+                  checked={col.visible}
                   onChange={() => onToggleColumnsVisibility(col.id)}
                   id={`col-visibility-${col.id}`}
                 /> {col.title}
