@@ -42,6 +42,7 @@ module.exports = {
     new LodashModuleReplacementPlugin({
       shorthands: true,
       collections: true,
+      paths: true,
     }),
     new webpack.optimize.UglifyJsPlugin({
       minimize: true,

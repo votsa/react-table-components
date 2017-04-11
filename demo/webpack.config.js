@@ -11,7 +11,7 @@ module.exports = {
     material: './material/index.jsx',
   },
   output: {
-    filename: '[name].entry.js',
+    filename: './[name].entry.js',
   },
   module: {
   rules: [{
@@ -30,8 +30,8 @@ module.exports = {
       loader: ExtractTextPlugin.extract({
         fallbackLoader: 'style-loader',
         loader: [{
-            loader: 'css-loader'
-          }],
+          loader: 'css-loader'
+        }],
       })
     }
   ]},

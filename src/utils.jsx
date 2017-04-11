@@ -1,7 +1,7 @@
 /* eslint-disable */
 
 // Closest polyfil
-if (window.Element && !Element.prototype.closest) {
+if (Element && !Element.prototype.closest) {
   Element.prototype.closest = function closest(s) {
     const matches = (this.document || this.ownerDocument).querySelectorAll(s);
     let i;
