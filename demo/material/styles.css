@@ -1,0 +1,39 @@
+.container {
+  width: 1280px;
+  margin: 0 auto;
+}
+
+.mdl-button {
+  font-size: 12px;
+  height: 26px;
+  line-height: 26px;
+  padding: 0 10px;
+  min-width: 12px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  border: 0;
+}
+
+.pagination {
+  float: right;
+}
+
+.pagination .mdl-button {
+  font-size: 14px;
+}
+
+.rtc-search-field {
+  padding: 0;
+}
+
+.rtc-search-field .mdl-textfield__label {
+  top: 3px;
+}
