@@ -4,6 +4,10 @@
   "description": "React components for rendering table data",
   "author": "Vladimir Kolebidenko",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/votsa/react-table-components"
+  },
   "keywords": [
     "react",
     "table"
