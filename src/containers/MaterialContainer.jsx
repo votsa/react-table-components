@@ -1,12 +1,13 @@
 import React, { Component, PropTypes } from 'react';
-import Table from './Table';
-import Pagination from './Pagination';
-import ColumnsVisibility from './ColumnsVisibility';
-import PageSizeSelector from './PageSizeSelector';
-import RecordsCounter from './RecordsCounter';
-import SearchField from './SearchField';
+import tableEnhancer from '../tableEnhancer';
+import Table from '../components/Table';
+import Pagination from '../components/Pagination';
+import ColumnsVisibility from '../components/ColumnsVisibility';
+import PageSizeSelector from '../components/PageSizeSelector';
+import RecordsCounter from '../components/RecordsCounter';
+import SearchField from '../components/SearchField';
 
-export default class Container extends Component {
+export class BootstrapContainer extends Component {
   static defaultProps = {
     draggable: false,
     sortable: false,
@@ -15,6 +16,7 @@ export default class Container extends Component {
     className: null,
     generateRowProps: null,
     filters: null,
+    pageSizeOptions: null,
   }
 
   static propTypes = {
@@ -26,6 +28,7 @@ export default class Container extends Component {
     onToggleColumnsVisibility: PropTypes.func.isRequired,
     onFilter: PropTypes.func.isRequired,
     columns: PropTypes.arrayOf(PropTypes.object).isRequired,
+    pageSizeOptions: PropTypes.arrayOf(PropTypes.number),
     sortBy: PropTypes.shape({
       prop: PropTypes.string,
       order: PropTypes.string,
@@ -49,31 +52,33 @@ export default class Container extends Component {
     } = this.props;
 
     return (
-      <div className="container">
-        <div className="row content-row">
-          <div className="col-md-6">
+      <div>
+        <div className="mdl-grid">
+          <div className="mdl-cell mdl-cell--6-col">
             <div className="form-inline">
               <SearchField
                 value={filters.globalSearch}
                 onChange={onFilter}
                 filterKey="globalSearch"
-                className="form-group"
-                controlClassName="form-control"
+                className="mdl-textfield"
+                controlClassName="mdl-textfield__input"
+                labelClassName="mdl-textfield__label"
+                activeClassName="is-dirty"
               />
             </div>
           </div>
-          <div className="col-md-6">
+          <div className="mdl-cell mdl-cell--6-col">
             <ColumnsVisibility
               columns={columns}
               onToggleColumnsVisibility={onToggleColumnsVisibility}
               btnText="Columns visibility"
-              btnClassName="btn btn-default btn-sm"
+              btnClassName="mdl-button mdl-button--raised"
               iconClassName="fa fa-bars"
             />
           </div>
         </div>
-        <div className="row content-row">
-          <div className="col-md-12">
+        <div className="mdl-grid">
+          <div className="mdl-cell mdl-cell--12-col">
             <div className="table-responsive rtc-table-responsive">
               <div className="rtc-table-container">
                 <Table
@@ -92,8 +97,8 @@ export default class Container extends Component {
             </div>
           </div>
         </div>
-        <div className="row content-row">
-          <div className="col-md-6">
+        <div className="mdl-grid">
+          <div className="mdl-cell mdl-cell--6-col">
             <PageSizeSelector
               onPageSizeChange={onPageSizeChange}
               perPage={payload.perPage}
@@ -106,13 +111,17 @@ export default class Container extends Component {
               perPage={payload.perPage}
             />
           </div>
-          <div className="col-md-6">
+          <div className="mdl-cell mdl-cell--6-col">
             <Pagination
               className="pagination pull-right"
               currentPage={payload.currentPage}
               total={payload.total}
               perPage={payload.perPage}
               onChangePage={onChangePage}
+              btnClassName="mdl-button"
+              btnActiveClassName="mdl-button--raised mdl-button--colored"
+              prevBtnComponent={<i className="material-icons">keyboard_arrow_left</i>}
+              nextBtnComponent={<i className="material-icons">keyboard_arrow_right</i>}
             />
           </div>
         </div>
@@ -120,3 +129,5 @@ export default class Container extends Component {
     );
   }
 }
+
+export default tableEnhancer(BootstrapContainer);

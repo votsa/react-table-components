@@ -9,6 +9,8 @@ export default class SearchField extends Component {
     value: '',
     className: '',
     controlClassName: '',
+    labelClassName: '',
+    activeClassName: '',
   }
 
   static propTypes = {
@@ -18,6 +20,8 @@ export default class SearchField extends Component {
     value: PropTypes.string,
     className: PropTypes.string,
     controlClassName: PropTypes.string,
+    labelClassName: PropTypes.string,
+    activeClassName: PropTypes.string,
   }
 
   constructor(props) {
@@ -40,12 +44,14 @@ export default class SearchField extends Component {
   }
 
   render() {
-    const { label, className, controlClassName } = this.props;
+    const { label, className, controlClassName, labelClassName, activeClassName } = this.props;
 
     return (
-      <div className={`rtc-search-field ${className}`}>
+      <div className={`rtc-search-field ${className} ${this.state.value ? activeClassName : ''}`}>
         {label &&
-          <label htmlFor="search-field" className="rtc-search-field-label">{label}</label>
+          <label htmlFor="search-field" className={`rtc-search-field-label ${labelClassName}`}>
+            {label}
+          </label>
         }
         <input
           id="search-field"

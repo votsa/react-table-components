@@ -7,7 +7,11 @@ export default class Pagination extends Component {
     showPages: 5,
     perPage: 10,
     currentPage: 0,
-    className: null,
+    className: '',
+    btnClassName: '',
+    btnActiveClassName: '',
+    prevBtnComponent: <span className="fa fa-angle-left" />,
+    nextBtnComponent: <span className="fa fa-angle-right" />,
   }
 
   static propTypes = {
@@ -17,6 +21,10 @@ export default class Pagination extends Component {
     currentPage: PropTypes.number.isRequired,
     showPages: PropTypes.number,
     className: PropTypes.string,
+    btnClassName: PropTypes.string,
+    btnActiveClassName: PropTypes.string,
+    prevBtnComponent: PropTypes.element,
+    nextBtnComponent: PropTypes.element,
   }
 
   shouldComponentUpdate(nextProps) {
@@ -33,7 +41,10 @@ export default class Pagination extends Component {
   }
 
   render() {
-    const { total, perPage, showPages, currentPage } = this.props;
+    const {
+      total, perPage, showPages, currentPage,
+      btnClassName, btnActiveClassName, prevBtnComponent, nextBtnComponent,
+    } = this.props;
 
     if (total === 0) {
       return null;
@@ -46,6 +57,7 @@ export default class Pagination extends Component {
     let buttons = [];
     let btnEvent;
     let isCurrent;
+    let btnClass;
 
     if (totalPages >= showPages && end >= totalPages) {
       start = totalPages - showPages;
@@ -59,9 +71,21 @@ export default class Pagination extends Component {
         btnEvent = e => this.onChangePage(i, e);
       }
 
+      btnClass = btnClassName || '';
+
+      if (isCurrent) {
+        btnClass += ` ${btnActiveClassName}`;
+        btnClass = btnClass.trim();
+      }
+
       buttons.push(
         <li key={i} className={isCurrent ? 'active' : null}>
-          <a role="button" href={undefined} onClick={btnEvent} tabIndex="0">
+          <a
+            href={undefined}
+            onClick={btnEvent}
+            className={btnClass || null}
+            tabIndex="0"
+          >
             <span>{i + 1}</span>
             {isCurrent ? <span className="sr-only">(current)</span> : null}
           </a>
@@ -80,11 +104,10 @@ export default class Pagination extends Component {
       buttons = [
         <li key="dotsFirst" className={!isNotFirst ? 'disabled' : null}>
           <a
-            role="button"
             href={undefined}
-            tabIndex="0"
             onClick={prevHandler}
-            aria-disabled={!isNotFirst}
+            className={btnClassName || null}
+            tabIndex="0"
           >
             ...
           </a>
@@ -96,12 +119,10 @@ export default class Pagination extends Component {
       buttons = [
         <li key="first" className={!isNotFirst ? 'disabled' : null}>
           <a
-            role="button"
             href={undefined}
-            tabIndex="0"
             onClick={firstHandler}
-            aria-disabled={!isNotFirst}
-            aria-label="First"
+            className={btnClassName || null}
+            tabIndex="0"
           >
             1
           </a>
@@ -112,14 +133,12 @@ export default class Pagination extends Component {
     buttons = [
       <li key="prev" className={!isNotFirst ? 'disabled' : null}>
         <a
-          role="button"
           href={undefined}
-          tabIndex="0"
           onClick={prevHandler}
-          aria-disabled={!isNotFirst}
-          aria-label="Previous"
+          className={btnClassName || null}
+          tabIndex="0"
         >
-          <span className="fa fa-angle-left" aria-hidden="true" />
+          {prevBtnComponent}
         </a>
       </li>,
     ].concat(buttons);
@@ -128,12 +147,10 @@ export default class Pagination extends Component {
       buttons = buttons.concat([
         <li key="dotsLast" className={!isNotLast ? 'disabled' : null}>
           <a
-            role="button"
             href={undefined}
-            tabIndex="0"
             onClick={nextHandler}
-            aria-disabled={!isNotLast}
-            aria-label="Next"
+            className={btnClassName || null}
+            tabIndex="0"
           >
             ...
           </a>
@@ -145,12 +162,10 @@ export default class Pagination extends Component {
       buttons = buttons.concat([
         <li key="last" className={!isNotLast ? 'disabled' : null}>
           <a
-            role="button"
             href={undefined}
-            tabIndex="0"
             onClick={lastHandler}
-            aria-disabled={!isNotLast}
-            aria-label="Last"
+            className={btnClassName || null}
+            tabIndex="0"
           >
             {totalPages}
           </a>
@@ -161,20 +176,18 @@ export default class Pagination extends Component {
     buttons = buttons.concat([
       <li key="next" className={!isNotLast ? 'disabled' : null}>
         <a
-          role="button"
           href={undefined}
-          tabIndex="0"
           onClick={nextHandler}
-          aria-disabled={!isNotLast}
-          aria-label="Next"
+          className={btnClassName || null}
+          tabIndex="0"
         >
-          <span className="fa fa-angle-right" aria-hidden="true" />
+          {nextBtnComponent}
         </a>
       </li>,
     ]);
 
     return (
-      <ul className={this.props.className} aria-label="Pagination">
+      <ul className={this.props.className}>
         {buttons}
       </ul>
     );

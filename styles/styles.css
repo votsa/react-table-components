@@ -26,6 +26,7 @@
 .rtc-table th.sortable span {
   position: relative;
   display: block;
+  padding-right: 12px;
 }
 
 .rtc-table th.sortable span:after,
@@ -187,4 +188,5 @@
 .rtc-search-field-label {
   margin: 0 5px 0 0;
   font-weight: normal;
+  outline: none;
 }

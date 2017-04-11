@@ -169,7 +169,9 @@ export default class Table extends Component {
    */
   generateHeaderProps(col) {
     const { sortable, sortBy, onSort, draggable } = this.props;
-    const headerProps = {};
+    const headerProps = {
+      className: col.headerClass ? `${col.headerClass} heading` : 'heading',
+    };
 
     if (sortable && col.prop && col.sortable !== false) {
       headerProps.onClick = () => onSort({
@@ -177,7 +179,7 @@ export default class Table extends Component {
         order: sortBy.order === c.SORT_ORDERS.DESC ? c.SORT_ORDERS.ASC : c.SORT_ORDERS.DESC,
       });
 
-      headerProps.className = 'sortable';
+      headerProps.className += ' sortable';
 
       if (sortBy.prop === col.prop) {
         headerProps.className += ` ${sortBy.order}`;
@@ -232,7 +234,6 @@ export default class Table extends Component {
           key={col.id}
           style={{ width: col.width }}
           data-index={index}
-          className="heading"
           {...headerProps}
         >
           <span>
@@ -253,7 +254,7 @@ export default class Table extends Component {
             }
 
             return (
-              <td key={col.id}>
+              <td key={col.id} className={col.cellClass ? col.cellClass : null}>
                 {getCellValue(col, row)}
               </td>
             );
