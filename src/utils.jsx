@@ -1,9 +1,9 @@
 /* eslint-disable */
 
 // Closest polyfil
-(function(global) {
-  if (global.Element && !global.Element.prototype.closest) {
-    Element.prototype.closest = function closest(s) {
+(function(root) {
+  if (root.Element && !root.Element.prototype.closest) {
+    root.Element.prototype.closest = function closest(s) {
       const matches = (this.document || this.ownerDocument).querySelectorAll(s);
       let i;
       let el = this;
@@ -16,7 +16,7 @@
       return el;
     };
   }
-})(typeof window === 'undefined' ? this : window);
+})(window);
 
 // Ignore case and trim whitespaces
 export const ignoreCase = value => value.toUpperCase().trim();
