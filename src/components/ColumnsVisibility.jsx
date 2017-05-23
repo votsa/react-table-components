@@ -65,18 +65,24 @@ export default class ColumnsVisibility extends Component {
           {iconClassName && <span className={iconClassName} />} {btnText}
         </button>
         <div className="rtc-columns-visibility-popup">
-          {columns.map(col => (
-            <div className="checkbox" key={col.id}>
-              <label htmlFor={`col-visibility-${col.id}`}>
-                <input
-                  type="checkbox"
-                  checked={col.visible}
-                  onChange={() => onToggleColumnsVisibility(col.id)}
-                  id={`col-visibility-${col.id}`}
-                /> {col.title}
-              </label>
-            </div>
-          ))}
+          {columns.map((col) => {
+            if (col.alwaysVisible) {
+              return null;
+            }
+
+            return (
+              <div className="checkbox" key={col.id}>
+                <label htmlFor={`col-visibility-${col.id}`}>
+                  <input
+                    type="checkbox"
+                    checked={col.visible}
+                    onChange={() => onToggleColumnsVisibility(col.id)}
+                    id={`col-visibility-${col.id}`}
+                  /> {col.title}
+                </label>
+              </div>
+            );
+          })}
         </div>
       </div>
     );

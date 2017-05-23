@@ -22,7 +22,8 @@ export default class Table extends Component {
     draggable: false,
     sortable: false,
     onColumnDrag: null,
-    sortBy: null,
+    onSort: null,
+    sortBy: {},
     className: null,
     generateRowProps: null,
   }
@@ -33,9 +34,9 @@ export default class Table extends Component {
       prop: PropTypes.string,
       order: PropTypes.string,
     }),
-    onSort: PropTypes.func.isRequired,
+    onSort: PropTypes.func,
     draggable: PropTypes.bool,
-    onColumnDrag: PropTypes.func.isRequired,
+    onColumnDrag: PropTypes.func,
     className: PropTypes.string,
     columns: PropTypes.arrayOf(PropTypes.object).isRequired,
     generateRowProps: PropTypes.func,
@@ -186,7 +187,7 @@ export default class Table extends Component {
       }
     }
 
-    if (draggable) {
+    if (draggable && col.draggable !== false) {
       headerProps.draggable = true;
       headerProps.onDragStart = this.dragStart;
       headerProps.onDragEnd = this.dragEnd;

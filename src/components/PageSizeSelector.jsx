@@ -10,17 +10,25 @@ export default class PageSizeSelector extends Component {
 
   static propTypes = {
     onPageSizeChange: PropTypes.func.isRequired,
-    perPage: PropTypes.number,
+    perPage: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+    ]).isRequired,
     pageSizeOptions: PropTypes.arrayOf(PropTypes.number),
     label: PropTypes.string,
     controlClassName: PropTypes.string,
+  }
+
+  onPageSizeChange = (e) => {
+    const value = e.target.value;
+
+    this.props.onPageSizeChange(value);
   }
 
   render() {
     const {
       controlClassName,
       label,
-      onPageSizeChange,
       pageSizeOptions,
       perPage,
     } = this.props;
@@ -30,7 +38,7 @@ export default class PageSizeSelector extends Component {
         <select
           id="page-size-selector"
           className={`rtc-page-size-selector-control ${controlClassName}`}
-          onChange={onPageSizeChange}
+          onChange={this.onPageSizeChange}
           value={perPage}
         >
           {pageSizeOptions.map(item => <option key={item.toString()} value={item}>{item}</option>)}

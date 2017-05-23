@@ -1,6 +1,6 @@
 {
   "name": "react-table-components",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "React components for rendering table data",
   "author": "Vladimir Kolebidenko",
   "license": "MIT",
@@ -21,20 +21,19 @@
   ],
   "scripts": {
     "build": "npm run test && webpack --config webpack.config.prod.js && babel src -d lib",
-    "build-demo": "webpack --config demo/webpack.config.prod.js",
     "start": "webpack-dev-server -d --config demo/webpack.config.js",
     "lint": "eslint src --ext js,jsx --fix; exit 0",
     "test": "npm run lint && jest"
   },
   "jest": {
-    "testPathDirs": [
+    "roots": [
       "src"
     ]
   },
   "dependencies": {
     "lodash": "^4.17.4",
     "react": "^15.4.2",
-    "react-dom": "^15.4.2"
+    "react-dom": "^15.5.4"
   },
   "devDependencies": {
     "babel-cli": "^6.23.0",
@@ -55,8 +54,9 @@
     "eslint-plugin-jsx-a11y": "^4.0.0",
     "eslint-plugin-react": "^6.10.3",
     "extract-text-webpack-plugin": "^2.0.0-beta.5",
-    "jest": "^18.1.0",
+    "jest": "^19.0.2",
     "lodash-webpack-plugin": "^0.11.2",
+    "react-test-renderer": "^15.5.4",
     "style-loader": "^0.16.1",
     "webpack": "^2.2.1",
     "webpack-dev-server": "^2.4.1"

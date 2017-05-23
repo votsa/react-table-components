@@ -11,7 +11,7 @@ module.exports = {
     material: './material/index.jsx',
   },
   output: {
-    filename: './[name].entry.js',
+    filename: './[name]/entry.js',
   },
   module: {
   rules: [{
@@ -44,7 +44,7 @@ module.exports = {
   },
   plugins: [
     new ExtractTextPlugin({
-      filename: '[name].css',
+      filename: '[name]/style.css',
     }),
   ]
 };

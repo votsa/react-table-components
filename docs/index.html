@@ -4,6 +4,7 @@
     <title>React table components</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" />
+
     <link rel="stylesheet" href="https://unpkg.com/react-table-components@0.0.6/styles/styles.css" />
     <link rel="stylesheet" href="./css/styles.css" />
   </head>
@@ -15,7 +16,8 @@
       </div>
 
       <h3>Base bootstrap example</h3>
-      <div id="base-bootstrap"></div>
+      <br />
+      <div id="base-bootstrap-container"></div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fetch/2.0.2/fetch.js"></script>
@@ -23,51 +25,52 @@
     <script src="https://npmcdn.com/react-dom@15.2.1/dist/react-dom.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.24.0/babel.min.js"></script>
     <script src="https://unpkg.com/react-table-components@0.0.6/dist/react-table-components.min.js"></script>
+
     <script src="data.js"></script>
+
     <script type="text/babel">
-      const UserPic = (row) => (
-        <div className="text-center">
-          <img src={row.pic} />
-        </div>
-      );
+      (function() {
+        const UserPic = (row) => (
+          <div className="text-center">
+            <img src={row.pic} />
+          </div>
+        );
 
-      const EditBtn = (row) => (
-        <div className="text-center">
-          <button className="btn btn-xs btn-success">Edit</button>
-        </div>
-      );
+        const EditBtn = (row) => (
+          <div className="text-center">
+            <button className="btn btn-xs btn-success">Edit</button>
+          </div>
+        );
 
-      const generateRowProps = row => {
-        const options = {};
+        const generateRowProps = row => {
+          const options = {};
 
-        if (row.gender === 'Male') {
-          options.className = 'info';
-        }
+          if (row.gender === 'Male') {
+            options.className = 'info';
+          }
 
-        if (row.gender === 'Female') {
-          options.className = 'warning';
-        }
+          if (row.gender === 'Female') {
+            options.className = 'warning';
+          }
 
-        return options;
-      };
+          return options;
+        };
 
-      function BaseTable(data) {
-        const columns = [
-          { id: 1, title: 'Avatar', render: UserPic, visible: false, width: '50px' },
-          { id: 2, title: 'First name', prop: 'first_name', width: '150px' },
-          { id: 3, title: 'Last name', prop: 'last_name', width: '150px' },
-          { id: 4, title: 'Email', prop: 'email' },
-          { id: 5, title: 'Gender', prop: 'gender', width: '85px' },
-          { id: 6, title: 'Ip address', prop: 'ip_address', width: '150px' },
-          { id: 7, title: 'Country', prop: 'country.name', width: '150px' },
-          { id: 8, title: 'Code', prop: 'country.code', width: '80px' },
-          { id: 9, title: 'City', prop: 'city.name' },
-          { id: 10, title: 'Action', render: EditBtn, width: '50px' },
-        ];
+        function BaseTable(data) {
+          const columns = [
+            { id: 1, title: 'Avatar', render: UserPic, visible: false, width: '50px' },
+            { id: 2, title: 'First name', prop: 'first_name', width: '150px' },
+            { id: 3, title: 'Last name', prop: 'last_name', width: '150px' },
+            { id: 4, title: 'Email', prop: 'email' },
+            { id: 5, title: 'Gender', prop: 'gender', width: '85px' },
+            { id: 6, title: 'Ip address', prop: 'ip_address', width: '150px' },
+            { id: 7, title: 'Country', prop: 'country.name', width: '150px' },
+            { id: 8, title: 'Code', prop: 'country.code', width: '80px' },
+            { id: 9, title: 'City', prop: 'city.name' },
+            { id: 10, title: 'Action', render: EditBtn, width: '50px' },
+          ];
 
-        return (
-          <div className="container">
-            <br />
+          return (
             <ReactTableComponents.BootstrapContainer
               keys="id"
               className="table table-bordered table-striped"
@@ -81,10 +84,10 @@
               generateRowProps={generateRowProps}
               pageSizeOptions={[5, 10, 50, 100]}
             />
-          </div>
-        );
-      }
-      ReactDOM.render(BaseTable(data), document.getElementById('base-bootstrap'));
+          );
+        }
+        ReactDOM.render(BaseTable(data), document.getElementById('base-bootstrap-container'));
+      })();
     </script>
   </body>
 </html>

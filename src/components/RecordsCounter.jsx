@@ -7,7 +7,10 @@ export default class RecordsCounter extends Component {
   }
 
   static propTypes = {
-    perPage: PropTypes.number,
+    perPage: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+    ]).isRequired,
     currentPage: PropTypes.number,
     total: PropTypes.number.isRequired,
   }

@@ -1,6 +1,42 @@
 import React, { PropTypes, Component } from 'react';
 import * as dataEnhancer from './dataEnhancer';
 
+/**
+ * Create state
+ *
+ * @param {object} props - component props
+ */
+const createState = (props) => {
+  const { dataArray, columns, sortBy, currentPage, perPage, filters } = props;
+
+  const initialState = {
+    columns: columns.map((col) => {
+      if (typeof col.visible === 'undefined') {
+        return {
+          ...col,
+          visible: true,
+        };
+      }
+      return col;
+    }),
+    dataArray,
+    filters: {
+      ...filters,
+      globalSearch: '',
+    },
+    payload: {},
+    sortBy,
+  };
+
+  return {
+    ...initialState,
+    payload: dataEnhancer.calculatePayload(initialState, {
+      currentPage,
+      perPage,
+    }),
+  };
+};
+
 export default function dataTableEnhancer(WrappedComponent) {
   return class DataTableEnhancer extends Component {
     static defaultProps = {
@@ -12,51 +48,18 @@ export default function dataTableEnhancer(WrappedComponent) {
     }
 
     static propTypes = {
-      perPage: PropTypes.number,
-      currentPage: PropTypes.number,
-      columns: PropTypes.arrayOf(PropTypes.object).isRequired,
-      sortBy: PropTypes.shape({
-        prop: PropTypes.string,
-        order: PropTypes.string,
-      }),
       onDragColumn: PropTypes.func,
       onChangeColumnsVisibility: PropTypes.func,
-      dataArray: PropTypes.arrayOf(PropTypes.oneOfType([
-        PropTypes.array,
-        PropTypes.object,
-      ])).isRequired,
     }
 
     constructor(props) {
       super(props);
 
-      const { dataArray, columns, sortBy, currentPage, perPage } = props;
+      this.state = createState(props);
+    }
 
-      const initialState = {
-        columns: columns.map((col) => {
-          if (typeof col.visible === 'undefined') {
-            return {
-              ...col,
-              visible: true,
-            };
-          }
-          return col;
-        }),
-        dataArray,
-        filters: {
-          globalSearch: '',
-        },
-        payload: {},
-        sortBy,
-      };
-
-      this.state = {
-        ...initialState,
-        payload: dataEnhancer.calculatePayload(initialState, {
-          currentPage,
-          perPage,
-        }),
-      };
+    componentWillReceiveProps(nextProps) {
+      this.setState(createState(nextProps));
     }
 
     /**
@@ -80,11 +83,9 @@ export default function dataTableEnhancer(WrappedComponent) {
     /**
      * On change page size
      *
-     * @param {object} e - event
+     * @param {number} perPage - new per page value
      */
-    onPageSizeChange = (e) => {
-      const perPage = e.target.value;
-
+    onPageSizeChange = (perPage) => {
       this.setState(state => dataEnhancer.changePageSize(state, perPage));
     }
 

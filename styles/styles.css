@@ -122,15 +122,15 @@
   left: -4px;
 }
 
-.pagination {
+.rtc-pagination {
   margin: 0;
 }
 
-.pagination li {
+.rtc-pagination li {
   display: inline-block;
 }
 
-.pagination a {
+.rtc-pagination a {
   cursor: pointer;
 }
 
@@ -170,12 +170,12 @@
   display: inline-block;
 }
 
-.rtc-page-size-selector-control {
+.rtc-page-size-selector .rtc-page-size-selector-control {
   width: 70px;
   display: inline-block;
 }
 
-.rtc-page-size-selector-label {
+.rtc-page-size-selector .rtc-page-size-selector-label {
   margin-left: 5px;
   font-weight: normal;
 }

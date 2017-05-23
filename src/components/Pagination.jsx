@@ -17,7 +17,10 @@ export default class Pagination extends Component {
   static propTypes = {
     onChangePage: PropTypes.func.isRequired,
     total: PropTypes.number.isRequired,
-    perPage: PropTypes.number.isRequired,
+    perPage: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+    ]).isRequired,
     currentPage: PropTypes.number.isRequired,
     showPages: PropTypes.number,
     className: PropTypes.string,
@@ -61,6 +64,10 @@ export default class Pagination extends Component {
 
     if (totalPages >= showPages && end >= totalPages) {
       start = totalPages - showPages;
+    }
+
+    if (end < showPages) {
+      start = 0;
     }
 
     for (let i = start; i < end; i++) {
@@ -187,7 +194,7 @@ export default class Pagination extends Component {
     ]);
 
     return (
-      <ul className={this.props.className}>
+      <ul className={`rtc-pagination ${this.props.className}`}>
         {buttons}
       </ul>
     );
