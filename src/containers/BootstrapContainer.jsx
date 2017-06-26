@@ -12,7 +12,7 @@ export class BootstrapContainer extends Component {
     draggable: false,
     sortable: false,
     onColumnDrag: null,
-    sortBy: null,
+    sortBy: {},
     className: null,
     generateRowProps: null,
     filters: null,

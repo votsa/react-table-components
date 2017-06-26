@@ -42,7 +42,7 @@ export default function dataTableEnhancer(WrappedComponent) {
     static defaultProps = {
       currentPage: 0,
       perPage: 10,
-      sortBy: null,
+      sortBy: {},
       onDragColumn: null,
       onChangeColumnsVisibility: null,
     }

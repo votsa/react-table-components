@@ -1,4 +1,5 @@
 import * as dataEnhancer from './dataEnhancer';
+
 export { dataEnhancer };
 export { default as tableEnhancer } from './tableEnhancer';
 // Components

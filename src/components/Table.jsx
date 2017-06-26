@@ -174,10 +174,15 @@ export default class Table extends Component {
       className: col.headerClass ? `${col.headerClass} heading` : 'heading',
     };
 
+    const order =
+      sortBy.prop === col.prop
+        ? sortBy.order === c.SORT_ORDERS.ASC ? c.SORT_ORDERS.DESC : c.SORT_ORDERS.ASC
+        : c.SORT_ORDERS.ASC;
+
     if (sortable && col.prop && col.sortable !== false) {
       headerProps.onClick = () => onSort({
+        order,
         prop: col.prop,
-        order: sortBy.order === c.SORT_ORDERS.DESC ? c.SORT_ORDERS.ASC : c.SORT_ORDERS.DESC,
       });
 
       headerProps.className += ' sortable';
