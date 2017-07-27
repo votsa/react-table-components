@@ -5,6 +5,8 @@ export default class ColumnsVisibility extends Component {
     btnClassName: '',
     iconClassName: '',
     btnText: 'Columns',
+    footer: null,
+    useAlphabeticalOrder: false,
   }
 
   static propTypes = {
@@ -12,6 +14,8 @@ export default class ColumnsVisibility extends Component {
     btnText: PropTypes.string,
     columns: PropTypes.arrayOf(PropTypes.object).isRequired,
     iconClassName: PropTypes.string,
+    footer: PropTypes.object,
+    useAlphabeticalOrder: PropTypes.bool,
     onToggleColumnsVisibility: PropTypes.func.isRequired,
   }
 
@@ -49,9 +53,22 @@ export default class ColumnsVisibility extends Component {
 
   render() {
     const {
-      columns, onToggleColumnsVisibility,
-      btnClassName, iconClassName, btnText,
+      columns,
+      onToggleColumnsVisibility,
+      btnClassName,
+      iconClassName,
+      btnText,
+      footer,
+      useAlphabeticalOrder,
     } = this.props;
+
+    const columnsArray = [].concat(columns);
+
+    if (useAlphabeticalOrder) {
+      columnsArray.sort((a, b) => {
+        return (a.title > b.title) ? 1 : ((b.title > a.title) ? -1 : 0);
+      });
+    }
 
     return (
       <div
@@ -65,7 +82,7 @@ export default class ColumnsVisibility extends Component {
           {iconClassName && <span className={iconClassName} />} {btnText}
         </button>
         <div className="rtc-columns-visibility-popup">
-          {columns.map((col) => {
+          {columnsArray.map((col) => {
             if (col.alwaysVisible) {
               return null;
             }
@@ -83,6 +100,10 @@ export default class ColumnsVisibility extends Component {
               </div>
             );
           })}
+
+          {footer &&
+            <div>{footer}</div>
+          }
         </div>
       </div>
     );

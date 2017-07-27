@@ -19,4 +19,4 @@
 })(window);
 
 // Ignore case and trim whitespaces
-export const ignoreCase = value => value.toUpperCase().trim();
+export const ignoreCase = (value) => value.toUpperCase().trim();

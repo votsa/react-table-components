@@ -2,8 +2,8 @@ import React, { PropTypes, Component } from 'react';
 import get from 'lodash/get';
 import * as c from '../constants';
 
-const simpleGet = key => data => data[key];
-const keyGetter = keys => data => keys.map(key => data[key]);
+const simpleGet = (key) => (data) => data[key];
+const keyGetter = (keys) => (data) => keys.map(key => data[key]);
 
 const getCellValue = ({ prop, defaultContent, render }, row) => {
   if (render) {
