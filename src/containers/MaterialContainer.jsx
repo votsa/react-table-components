@@ -46,9 +46,22 @@ export class BootstrapContainer extends Component {
 
   render() {
     const {
-      keys, className, draggable, sortable, sortBy, columns, onSort,
-      payload, onChangePage, onPageSizeChange, onColumnDrag, onToggleColumnsVisibility,
-      filters, onFilter, generateRowProps, pageSizeOptions,
+      keys,
+      className,
+      draggable,
+      sortable,
+      sortBy,
+      columns,
+      onSort,
+      payload,
+      onChangePage,
+      onPageSizeChange,
+      onColumnDrag,
+      onToggleColumnsVisibility,
+      filters,
+      onFilter,
+      generateRowProps,
+      pageSizeOptions,
     } = this.props;
 
     return (

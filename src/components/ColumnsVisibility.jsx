@@ -46,7 +46,7 @@ export default class ColumnsVisibility extends Component {
   }
 
   toggleVisibility = (flag) => {
-    this.setState(state => ({
+    this.setState((state) => ({
       active: (typeof flag !== 'undefined') ? flag : !state.active,
     }));
   }
@@ -65,9 +65,7 @@ export default class ColumnsVisibility extends Component {
     const columnsArray = [].concat(columns);
 
     if (useAlphabeticalOrder) {
-      columnsArray.sort((a, b) => {
-        return (a.title > b.title) ? 1 : ((b.title > a.title) ? -1 : 0);
-      });
+      columnsArray.sort((a, b) => a.title > b.title);
     }
 
     return (

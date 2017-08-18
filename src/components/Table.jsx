@@ -2,8 +2,11 @@ import React, { PropTypes, Component } from 'react';
 import get from 'lodash/get';
 import * as c from '../constants';
 
-const simpleGet = (key) => (data) => data[key];
-const keyGetter = (keys) => (data) => keys.map(key => data[key]);
+const getKeys = (keys, data) => (
+  Array.isArray(keys)
+    ? keys.map((key) => data[key])
+    : data[keys]
+);
 
 const getCellValue = ({ prop, defaultContent, render }, row) => {
   if (render) {
@@ -169,14 +172,25 @@ export default class Table extends Component {
    * @param {object} col - column object
    */
   generateHeaderProps(col) {
-    const { sortable, sortBy, onSort, draggable } = this.props;
+    const {
+      sortable,
+      sortBy,
+      onSort,
+      draggable,
+    } = this.props;
+
     const headerProps = {
       className: col.headerClass ? `${col.headerClass} heading` : 'heading',
     };
 
+    const orderString =
+      sortBy.order === c.SORT_ORDERS.ASC
+        ? c.SORT_ORDERS.DESC
+        : c.SORT_ORDERS.ASC;
+
     const order =
       sortBy.prop === col.prop
-        ? sortBy.order === c.SORT_ORDERS.ASC ? c.SORT_ORDERS.DESC : c.SORT_ORDERS.ASC
+        ? orderString
         : c.SORT_ORDERS.ASC;
 
     if (sortable && col.prop && col.sortable !== false) {
@@ -208,11 +222,13 @@ export default class Table extends Component {
    * @param {object} row - row object
    */
   generateRowProps(row) {
-    const { keys, generateRowProps } = this.props;
-    const getKeys = Array.isArray(keys) ? keyGetter(keys) : simpleGet(keys);
+    const {
+      keys,
+      generateRowProps,
+    } = this.props;
 
     const props = {
-      key: getKeys(row),
+      key: getKeys(keys, row),
     };
 
     if (typeof generateRowProps === 'function') {
@@ -226,7 +242,10 @@ export default class Table extends Component {
   }
 
   render() {
-    const { dataArray, columns } = this.props;
+    const {
+      dataArray,
+      columns,
+    } = this.props;
 
     const headers = columns.map((col, index) => {
       if (col.visible === false) {
@@ -279,7 +298,7 @@ export default class Table extends Component {
         <tbody>
           {rows.length ? rows :
           <tr>
-            <td colSpan={columns.filter(col => col.visible).length} className="no-data">No data</td>
+            <td colSpan={columns.filter((col) => col.visible).length} className="no-data">No data</td>
           </tr>
           }
         </tbody>

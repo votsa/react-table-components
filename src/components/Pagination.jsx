@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 
-const cancelEvent = e => e.preventDefault();
+const cancelEvent = (e) => e.preventDefault();
 
 export default class Pagination extends Component {
   static defaultProps = {
@@ -45,8 +45,14 @@ export default class Pagination extends Component {
 
   render() {
     const {
-      total, perPage, showPages, currentPage,
-      btnClassName, btnActiveClassName, prevBtnComponent, nextBtnComponent,
+      total,
+      perPage,
+      showPages,
+      currentPage,
+      btnClassName,
+      prevBtnComponent,
+      nextBtnComponent,
+      btnActiveClassName,
     } = this.props;
 
     if (total === 0) {
@@ -75,7 +81,7 @@ export default class Pagination extends Component {
       if (isCurrent) {
         btnEvent = cancelEvent;
       } else {
-        btnEvent = e => this.onChangePage(i, e);
+        btnEvent = (e) => this.onChangePage(i, e);
       }
 
       btnClass = btnClassName || '';
@@ -102,10 +108,10 @@ export default class Pagination extends Component {
 
     const isNotFirst = currentPage > 0;
     const isNotLast = currentPage < totalPages - 1;
-    const firstHandler = isNotFirst ? e => this.onChangePage(0, e) : cancelEvent;
-    const prevHandler = isNotFirst ? e => this.onChangePage(currentPage - 1, e) : cancelEvent;
-    const nextHandler = isNotLast ? e => this.onChangePage(currentPage + 1, e) : cancelEvent;
-    const lastHandler = isNotLast ? e => this.onChangePage(totalPages - 1, e) : cancelEvent;
+    const firstHandler = isNotFirst ? (e) => this.onChangePage(0, e) : cancelEvent;
+    const prevHandler = isNotFirst ? (e) => this.onChangePage(currentPage - 1, e) : cancelEvent;
+    const nextHandler = isNotLast ? (e) => this.onChangePage(currentPage + 1, e) : cancelEvent;
+    const lastHandler = isNotLast ? (e) => this.onChangePage(totalPages - 1, e) : cancelEvent;
 
     if (start >= diff) {
       buttons = [

@@ -28,6 +28,7 @@
     }],
     "react/forbid-prop-types": ["error", {
       "forbid": []
-    }]
+    }],
+    "arrow-parens": ["error", "always"]
   }
 }

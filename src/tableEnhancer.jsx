@@ -7,7 +7,14 @@ import * as dataEnhancer from './dataEnhancer';
  * @param {object} props - component props
  */
 const createState = (props) => {
-  const { dataArray, columns, sortBy, currentPage, perPage, filters } = props;
+  const {
+    dataArray,
+    columns,
+    sortBy,
+    currentPage,
+    perPage,
+    filters,
+  } = props;
 
   const initialState = {
     columns: columns.map((col) => {
@@ -40,9 +47,9 @@ const createState = (props) => {
 export default function dataTableEnhancer(WrappedComponent) {
   return class DataTableEnhancer extends Component {
     static defaultProps = {
-      currentPage: 0,
-      perPage: 10,
       sortBy: {},
+      perPage: 10,
+      currentPage: 0,
       onDragColumn: null,
       onChangeColumnsVisibility: null,
     }
@@ -68,7 +75,7 @@ export default function dataTableEnhancer(WrappedComponent) {
      * @param {object} sortBy - sorting object
      */
     onSort = (sortBy) => {
-      this.setState(state => dataEnhancer.sortData(state, sortBy));
+      this.setState((state) => dataEnhancer.sortData(state, sortBy));
     }
 
     /**
@@ -77,7 +84,7 @@ export default function dataTableEnhancer(WrappedComponent) {
      * @param {number} page - new page
      */
     onChangePage = (page) => {
-      this.setState(state => dataEnhancer.changePage(state, page));
+      this.setState((state) => dataEnhancer.changePage(state, page));
     }
 
     /**
@@ -86,7 +93,7 @@ export default function dataTableEnhancer(WrappedComponent) {
      * @param {number} perPage - new per page value
      */
     onPageSizeChange = (perPage) => {
-      this.setState(state => dataEnhancer.changePageSize(state, perPage));
+      this.setState((state) => dataEnhancer.changePageSize(state, perPage));
     }
 
     /**
@@ -96,7 +103,7 @@ export default function dataTableEnhancer(WrappedComponent) {
      * @param {string|number} value - filter value
      */
     onFilter = (key, value) => {
-      this.setState(state => dataEnhancer.filterData(state, key, value));
+      this.setState((state) => dataEnhancer.filterData(state, key, value));
     }
 
     /**
@@ -109,7 +116,7 @@ export default function dataTableEnhancer(WrappedComponent) {
       const { onDragColumn } = this.props;
 
       this.setState(
-        state => dataEnhancer.dragColumn(state, { from, to }),
+        (state) => dataEnhancer.dragColumn(state, { from, to }),
         () => {
           if (typeof onDragColumn === 'function') {
             onDragColumn(this.state.columns);
@@ -127,7 +134,7 @@ export default function dataTableEnhancer(WrappedComponent) {
       const { onChangeColumnsVisibility } = this.props;
 
       this.setState(
-        state => dataEnhancer.toggleColumnVisibility(state, columnId),
+        (state) => dataEnhancer.toggleColumnVisibility(state, columnId),
         () => {
           if (typeof onChangeColumnsVisibility === 'function') {
             onChangeColumnsVisibility(this.state.columns);

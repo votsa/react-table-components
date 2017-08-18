@@ -39,6 +39,7 @@ module.exports = {
     extensions: ['.js', '.jsx', '.css'],
     alias: {
       'react-table-components': path.join(__dirname, '../src'),
+      'lib': path.join(__dirname, '../lib'),
       'styles': path.join(__dirname, '../styles'),
     }
   },

@@ -20,7 +20,9 @@
     "src"
   ],
   "scripts": {
-    "build": "npm run test && webpack --config webpack.config.prod.js && babel src -d lib",
+    "build": "npm run test && npm run build:js && npm run build:css",
+    "build:js": "webpack --config webpack.config.prod.js && babel src -d lib",
+    "build:css": "cpx styles/* lib/styles/",
     "start": "webpack-dev-server -d --config demo/webpack.config.js",
     "lint": "eslint src --ext js,jsx --fix; exit 0",
     "test": "npm run lint && jest"

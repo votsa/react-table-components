@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import debounce from 'lodash/debounce';
 
-const fireEvent = debounce(callback => callback(), 200);
+const fireEvent = debounce((callback) => callback(), 200);
 
 export default class SearchField extends Component {
   static defaultProps = {
@@ -33,7 +33,11 @@ export default class SearchField extends Component {
   }
 
   onChange = (e) => {
-    const { onChange, filterKey } = this.props;
+    const {
+      onChange,
+      filterKey,
+    } = this.props;
+
     const value = e.target.value;
 
     this.setState({
@@ -44,7 +48,13 @@ export default class SearchField extends Component {
   }
 
   render() {
-    const { label, className, controlClassName, labelClassName, activeClassName } = this.props;
+    const {
+      label,
+      className,
+      controlClassName,
+      labelClassName,
+      activeClassName,
+    } = this.props;
 
     return (
       <div className={`rtc-search-field ${className} ${this.state.value ? activeClassName : ''}`}>

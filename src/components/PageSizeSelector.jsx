@@ -41,7 +41,9 @@ export default class PageSizeSelector extends Component {
           onChange={this.onPageSizeChange}
           value={perPage}
         >
-          {pageSizeOptions.map(item => <option key={item.toString()} value={item}>{item}</option>)}
+          {pageSizeOptions.map((item) =>
+            <option key={item.toString()} value={item}>{item}</option>)
+          }
         </select>
         <label
           htmlFor="page-size-selector"

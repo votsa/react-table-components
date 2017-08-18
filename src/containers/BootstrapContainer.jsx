@@ -46,14 +46,27 @@ export class BootstrapContainer extends Component {
 
   render() {
     const {
-      keys, className, draggable, sortable, sortBy, columns, onSort,
-      payload, onChangePage, onPageSizeChange, onColumnDrag, onToggleColumnsVisibility,
-      filters, onFilter, generateRowProps, pageSizeOptions,
+      keys,
+      className,
+      draggable,
+      sortable,
+      sortBy,
+      columns,
+      onSort,
+      payload,
+      onChangePage,
+      onPageSizeChange,
+      onColumnDrag,
+      onToggleColumnsVisibility,
+      filters,
+      onFilter,
+      generateRowProps,
+      pageSizeOptions,
     } = this.props;
 
     return (
       <div>
-        <div className="row content-row">
+        <div className="row rtc-content-row">
           <div className="col-md-6">
             <div className="form-inline">
               <SearchField
@@ -75,7 +88,7 @@ export class BootstrapContainer extends Component {
             />
           </div>
         </div>
-        <div className="row content-row">
+        <div className="row rtc-content-row">
           <div className="col-md-12">
             <div className="table-responsive rtc-table-responsive">
               <div className="rtc-table-container">
@@ -95,7 +108,7 @@ export class BootstrapContainer extends Component {
             </div>
           </div>
         </div>
-        <div className="row content-row">
+        <div className="row rtc-content-row">
           <div className="col-md-6">
             <PageSizeSelector
               onPageSizeChange={onPageSizeChange}
