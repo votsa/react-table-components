@@ -5,7 +5,6 @@ import RecordsCounter from '../../components/RecordsCounter';
 describe('<RecordsCounter />', () => {
   it('shows records count', () => {
     const shallowRenderer = createRenderer();
-    const expected = 'Showing 1 to 10 of 1000 records';
 
     shallowRenderer.render(
       <RecordsCounter
@@ -17,6 +16,6 @@ describe('<RecordsCounter />', () => {
 
     const result = shallowRenderer.getRenderOutput();
 
-    expect(result.props.children).toEqual(expected);
+    expect(result).toMatchSnapshot();
   });
 });

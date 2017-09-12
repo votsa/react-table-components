@@ -14,7 +14,7 @@ module.exports = {
     filename: './[name]/entry.js',
   },
   module: {
-  rules: [{
+    rules: [{
       test: /\.(js|jsx)$/,
       exclude: /node_modules/,
       use: [

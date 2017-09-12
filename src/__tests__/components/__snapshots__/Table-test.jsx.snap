@@ -1,0 +1,113 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Table /> render table 1`] = `
+<table
+  className="rtc-table null"
+  onDragOver={[Function]}
+>
+  <thead>
+    <tr>
+      <th
+        className="heading"
+        data-index={0}
+        style={
+          Object {
+            "width": undefined,
+          }
+        }
+      >
+        <span>
+          First name
+        </span>
+      </th>
+      <th
+        className="heading"
+        data-index={1}
+        style={
+          Object {
+            "width": undefined,
+          }
+        }
+      >
+        <span>
+          Last name
+        </span>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td
+        className={null}
+      >
+        Jhon
+      </td>
+      <td
+        className={null}
+      >
+        Dou
+      </td>
+    </tr>
+    <tr>
+      <td
+        className={null}
+      >
+        Vasily
+      </td>
+      <td
+        className={null}
+      >
+        Pupkin
+      </td>
+    </tr>
+  </tbody>
+</table>
+`;
+
+exports[`<Table /> shows empty message if no data 1`] = `
+<table
+  className="rtc-table null"
+  onDragOver={[Function]}
+>
+  <thead>
+    <tr>
+      <th
+        className="heading"
+        data-index={0}
+        style={
+          Object {
+            "width": undefined,
+          }
+        }
+      >
+        <span>
+          First name
+        </span>
+      </th>
+      <th
+        className="heading"
+        data-index={1}
+        style={
+          Object {
+            "width": undefined,
+          }
+        }
+      >
+        <span>
+          Last name
+        </span>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td
+        className="no-data"
+        colSpan={2}
+      >
+        No data
+      </td>
+    </tr>
+  </tbody>
+</table>
+`;
