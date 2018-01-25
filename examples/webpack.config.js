@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
@@ -47,5 +48,8 @@ module.exports = {
     new ExtractTextPlugin({
       filename: '[name]/style.css',
     }),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify('develop')
+    })
   ]
 };

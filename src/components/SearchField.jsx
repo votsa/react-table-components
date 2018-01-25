@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import debounce from 'lodash/debounce';
 
-const fireEvent = debounce((callback) => callback(), 200);
+const debouncedEvent = debounce((callback) => callback(), 200);
 
 export default class SearchField extends Component {
   static defaultProps = {
@@ -10,12 +10,13 @@ export default class SearchField extends Component {
     className: '',
     controlClassName: '',
     labelClassName: '',
-    activeClassName: '',
+    activeClassName: 'active',
+    filterKey: 'globalSearch',
   }
 
   static propTypes = {
     onChange: PropTypes.func.isRequired,
-    filterKey: PropTypes.string.isRequired,
+    filterKey: PropTypes.string,
     label: PropTypes.string,
     value: PropTypes.string,
     className: PropTypes.string,
@@ -44,7 +45,7 @@ export default class SearchField extends Component {
       value,
     });
 
-    fireEvent(() => onChange(filterKey, value));
+    debouncedEvent(() => onChange(filterKey, value));
   }
 
   render() {
@@ -56,8 +57,10 @@ export default class SearchField extends Component {
       activeClassName,
     } = this.props;
 
+    const { value } = this.state;
+
     return (
-      <div className={`rtc-search-field ${className} ${this.state.value ? activeClassName : ''}`}>
+      <div className={`rtc-search-field ${className} ${value ? activeClassName : ''}`}>
         {label &&
           <label htmlFor="search-field" className={`rtc-search-field-label ${labelClassName}`}>
             {label}
@@ -67,7 +70,7 @@ export default class SearchField extends Component {
           id="search-field"
           type="search"
           className={`rtc-search-field-label ${controlClassName}`}
-          value={this.state.value}
+          value={value}
           onChange={this.onChange}
         />
       </div>

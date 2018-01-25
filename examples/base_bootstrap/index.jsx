@@ -45,20 +45,25 @@ function BaseTable(data) {
     { id: 10, title: 'Action', render: EditBtn, width: '50px' },
   ];
 
+  const sortBy = {
+    prop: 'country.name',
+    order: 'asc',
+  };
+
   return (
     <div className="container">
       <br />
       <BootstrapContainer
         keys="id"
-        className="table table-bordered table-striped"
+        tableClassName="table table-bordered table-striped"
         columns={columns}
         dataArray={data}
-        sortBy={{ prop: 'country.name', order: 'asc' }}
+        sortBy={sortBy}
         onDragColumnCallback={(cols) => console.log(cols)}
         onToggleColumnVisibilityCallback={(cols) => console.log(cols)}
         onSortCallback={(sortBy) => console.log(sortBy)}
         generateRowProps={generateRowProps}
-        pageSizeOptions={[5, 10, 50, 100]}
+        pageSizeOptions={[5, 10, 50]}
         draggable
         sortable
       />

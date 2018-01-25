@@ -13,7 +13,7 @@ export class BootstrapContainer extends Component {
     sortable: false,
     onDragColumn: null,
     sortBy: {},
-    className: null,
+    tableClassName: null,
     generateRowProps: null,
     filters: null,
     pageSizeOptions: null,
@@ -37,7 +37,7 @@ export class BootstrapContainer extends Component {
     payload: PropTypes.object.isRequired,
     sortable: PropTypes.bool,
     draggable: PropTypes.bool,
-    className: PropTypes.string,
+    tableClassName: PropTypes.string,
     keys: PropTypes.oneOfType([
       PropTypes.arrayOf(PropTypes.string),
       PropTypes.string,
@@ -47,13 +47,13 @@ export class BootstrapContainer extends Component {
   render() {
     const {
       keys,
-      className,
+      payload,
+      columns,
+      tableClassName,
       draggable,
       sortable,
       sortBy,
-      columns,
       onSort,
-      payload,
       onChangePage,
       onChangePageSize,
       onDragColumn,
@@ -72,7 +72,6 @@ export class BootstrapContainer extends Component {
               <SearchField
                 value={filters.globalSearch}
                 onChange={onFilter}
-                filterKey="globalSearch"
                 className="form-group"
                 controlClassName="form-control"
               />
@@ -94,7 +93,7 @@ export class BootstrapContainer extends Component {
               <div className="rtc-table-container">
                 <Table
                   keys={keys}
-                  className={className}
+                  className={tableClassName}
                   columns={columns}
                   dataArray={payload.data}
                   sortable={sortable}
