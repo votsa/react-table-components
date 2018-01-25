@@ -1,4 +1,5 @@
 import React, { PropTypes, Component } from 'react';
+import { showDeprecatedMessage } from '../utils';
 
 export default class ColumnsVisibility extends Component {
   static defaultProps = {
@@ -16,7 +17,8 @@ export default class ColumnsVisibility extends Component {
     iconClassName: PropTypes.string,
     footer: PropTypes.object,
     useAlphabeticalOrder: PropTypes.bool,
-    onToggleColumnsVisibility: PropTypes.func.isRequired,
+    onToggleColumnsVisibility: PropTypes.func,  // deprecated
+    onToggleColumnVisibility: PropTypes.func, // TODO: use required
   }
 
   constructor(props) {
@@ -25,6 +27,11 @@ export default class ColumnsVisibility extends Component {
     this.state = {
       active: false,
     };
+
+    // TODO: cleanup
+    if (typeof this.props.onToggleColumnsVisibility === 'function') {
+      showDeprecatedMessage('onToggleColumnsVisibility is deprecated! Use onToggleColumnVisibility instead.');
+    }
   }
 
   componentWillMount() {
@@ -51,10 +58,18 @@ export default class ColumnsVisibility extends Component {
     }));
   }
 
+  toggleColumnVisibility = (colId) => () => {
+    // TODO: cleanup
+    if (typeof this.props.onToggleColumnsVisibility === 'function') {
+      this.props.onToggleColumnsVisibility(colId);
+    } else {
+      this.props.onToggleColumnVisibility(colId);
+    }
+  }
+
   render() {
     const {
       columns,
-      onToggleColumnsVisibility,
       btnClassName,
       iconClassName,
       btnText,
@@ -91,7 +106,7 @@ export default class ColumnsVisibility extends Component {
                   <input
                     type="checkbox"
                     checked={col.visible}
-                    onChange={() => onToggleColumnsVisibility(col.id)}
+                    onChange={this.toggleColumnVisibility(col.id)}
                     id={`col-visibility-${col.id}`}
                   /> {col.title}
                 </label>

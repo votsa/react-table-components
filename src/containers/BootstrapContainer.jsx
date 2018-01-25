@@ -11,7 +11,7 @@ export class BootstrapContainer extends Component {
   static defaultProps = {
     draggable: false,
     sortable: false,
-    onColumnDrag: null,
+    onDragColumn: null,
     sortBy: {},
     className: null,
     generateRowProps: null,
@@ -21,11 +21,11 @@ export class BootstrapContainer extends Component {
 
   static propTypes = {
     generateRowProps: PropTypes.func,
-    onColumnDrag: PropTypes.func.isRequired,
+    onDragColumn: PropTypes.func.isRequired,
     onSort: PropTypes.func.isRequired,
     onChangePage: PropTypes.func.isRequired,
-    onPageSizeChange: PropTypes.func.isRequired,
-    onToggleColumnsVisibility: PropTypes.func.isRequired,
+    onChangePageSize: PropTypes.func.isRequired,
+    onToggleColumnVisibility: PropTypes.func.isRequired,
     onFilter: PropTypes.func.isRequired,
     columns: PropTypes.arrayOf(PropTypes.object).isRequired,
     pageSizeOptions: PropTypes.arrayOf(PropTypes.number),
@@ -55,9 +55,9 @@ export class BootstrapContainer extends Component {
       onSort,
       payload,
       onChangePage,
-      onPageSizeChange,
-      onColumnDrag,
-      onToggleColumnsVisibility,
+      onChangePageSize,
+      onDragColumn,
+      onToggleColumnVisibility,
       filters,
       onFilter,
       generateRowProps,
@@ -81,7 +81,7 @@ export class BootstrapContainer extends Component {
           <div className="col-md-6">
             <ColumnsVisibility
               columns={columns}
-              onToggleColumnsVisibility={onToggleColumnsVisibility}
+              onToggleColumnVisibility={onToggleColumnVisibility}
               btnText="Columns visibility"
               btnClassName="btn btn-default btn-sm"
               iconClassName="fa fa-bars"
@@ -101,7 +101,7 @@ export class BootstrapContainer extends Component {
                   sortBy={sortBy}
                   onSort={onSort}
                   draggable={draggable}
-                  onColumnDrag={onColumnDrag}
+                  onDragColumn={onDragColumn}
                   generateRowProps={generateRowProps}
                 />
               </div>
@@ -111,7 +111,7 @@ export class BootstrapContainer extends Component {
         <div className="row rtc-content-row">
           <div className="col-md-6">
             <PageSizeSelector
-              onPageSizeChange={onPageSizeChange}
+              onChangePageSize={onChangePageSize}
               perPage={payload.perPage}
               pageSizeOptions={pageSizeOptions}
               controlClassName="form-control"

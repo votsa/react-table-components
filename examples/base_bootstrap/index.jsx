@@ -11,13 +11,13 @@ const UserPic = (row) => (
   </div>
 );
 
-const EditBtn = (row) => (
+const EditBtn = () => (
   <div className="text-center">
     <button className="btn btn-xs btn-success">Edit</button>
   </div>
 );
 
-const generateRowProps = row => {
+const generateRowProps = (row) => {
   const options = {};
 
   if (row.gender === 'Male') {
@@ -52,21 +52,22 @@ function BaseTable(data) {
         keys="id"
         className="table table-bordered table-striped"
         columns={columns}
-        onDragColumn={columns => console.log(columns)}
-        onChangeColumnsVisibility={columns => console.log(columns)}
         dataArray={data}
-        draggable={true}
-        sortable={true}
         sortBy={{ prop: 'country.name', order: 'asc' }}
+        onDragColumnCallback={(cols) => console.log(cols)}
+        onToggleColumnVisibilityCallback={(cols) => console.log(cols)}
+        onSortCallback={(sortBy) => console.log(sortBy)}
         generateRowProps={generateRowProps}
         pageSizeOptions={[5, 10, 50, 100]}
+        draggable
+        sortable
       />
     </div>
   );
 }
 
 fetch('/data.json')
-  .then(res => res.json())
+  .then((res) => res.json())
   .then((rows) => {
     ReactDOM.render(BaseTable(rows), document.getElementById('app'));
   });

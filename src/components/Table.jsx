@@ -1,6 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import get from 'lodash/get';
 import * as c from '../constants';
+import { showDeprecatedMessage } from '../utils';
 
 const getKeys = (keys, data) => (
   Array.isArray(keys)
@@ -24,7 +25,8 @@ export default class Table extends Component {
   static defaultProps = {
     draggable: false,
     sortable: false,
-    onColumnDrag: null,
+    onColumnDrag: null, // deprecated
+    onDragColumn: null,
     onSort: null,
     sortBy: {},
     className: null,
@@ -39,7 +41,8 @@ export default class Table extends Component {
     }),
     onSort: PropTypes.func,
     draggable: PropTypes.bool,
-    onColumnDrag: PropTypes.func,
+    onColumnDrag: PropTypes.func, // deprecated
+    onDragColumn: PropTypes.func,
     className: PropTypes.string,
     columns: PropTypes.arrayOf(PropTypes.object).isRequired,
     generateRowProps: PropTypes.func,
@@ -58,6 +61,11 @@ export default class Table extends Component {
 
     if (props.draggable) {
       this.createDragContainer();
+    }
+
+    // TODO: cleanup
+    if (typeof this.props.onColumnDrag === 'function') {
+      showDeprecatedMessage('onColumnDrag is deprecated! Use onDragColumn instead.');
     }
   }
 
@@ -98,14 +106,20 @@ export default class Table extends Component {
    * @param {object} e - event object
    */
   dragEnd = () => {
-    const { onColumnDrag } = this.props;
+    const { onColumnDrag, onDragColumn } = this.props;
+
     const from = Number(this.dragged.dataset.index);
     const to = Number(this.over ? this.over.dataset.index : this.dragged.dataset.index);
 
     this.cleanUpOverElement();
     this.dragContainer.innerHTML = '';
 
-    onColumnDrag(from, to);
+    // TODO: cleanup
+    if (typeof onColumnDrag === 'function') {
+      onColumnDrag(from, to);
+    } else {
+      onDragColumn(from, to);
+    }
   }
 
   /**

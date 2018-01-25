@@ -1,4 +1,5 @@
 import React, { PropTypes, Component } from 'react';
+import { showDeprecatedMessage } from '../utils';
 
 export default class PageSizeSelector extends Component {
   static defaultProps = {
@@ -9,7 +10,8 @@ export default class PageSizeSelector extends Component {
   }
 
   static propTypes = {
-    onPageSizeChange: PropTypes.func.isRequired,
+    onPageSizeChange: PropTypes.func, // deprecated
+    onChangePageSize: PropTypes.func, // TODO: use required
     perPage: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.number,
@@ -19,10 +21,24 @@ export default class PageSizeSelector extends Component {
     controlClassName: PropTypes.string,
   }
 
-  onPageSizeChange = (e) => {
+  constructor(props) {
+    super(props);
+
+    // TODO: cleanup
+    if (typeof this.props.onPageSizeChange === 'function') {
+      showDeprecatedMessage('onPageSizeChange is deprecated! Use onChangePageSize instead.');
+    }
+  }
+
+  onChangePageSize = (e) => {
     const value = e.target.value;
 
-    this.props.onPageSizeChange(value);
+    // TODO: cleanup
+    if (typeof onPageSizeChange === 'function') {
+      this.props.onPageSizeChange(value);
+    } else {
+      this.props.onChangePageSize(value);
+    }
   }
 
   render() {
@@ -38,7 +54,7 @@ export default class PageSizeSelector extends Component {
         <select
           id="page-size-selector"
           className={`rtc-page-size-selector-control ${controlClassName}`}
-          onChange={this.onPageSizeChange}
+          onChange={this.onChangePageSize}
           value={perPage}
         >
           {pageSizeOptions.map((item) =>

@@ -50,13 +50,15 @@ export default function dataTableEnhancer(WrappedComponent) {
       sortBy: {},
       perPage: 10,
       currentPage: 0,
-      onDragColumn: null,
-      onChangeColumnsVisibility: null,
+      onDragColumnCallback: null,
+      onToggleColumnVisibilityCallback: null,
+      onSortCallback: null,
     }
 
     static propTypes = {
-      onDragColumn: PropTypes.func,
-      onChangeColumnsVisibility: PropTypes.func,
+      onDragColumnCallback: PropTypes.func,
+      onToggleColumnVisibilityCallback: PropTypes.func,
+      onSortCallback: PropTypes.func,
     }
 
     constructor(props) {
@@ -75,7 +77,16 @@ export default function dataTableEnhancer(WrappedComponent) {
      * @param {object} sortBy - sorting object
      */
     onSort = (sortBy) => {
-      this.setState((state) => dataEnhancer.sortData(state, sortBy));
+      const { onSortCallback } = this.props;
+
+      this.setState(
+        (state) => dataEnhancer.sortData(state, sortBy),
+        () => {
+          if (typeof onSortCallback === 'function') {
+            onSortCallback(sortBy);
+          }
+        },
+      );
     }
 
     /**
@@ -92,7 +103,7 @@ export default function dataTableEnhancer(WrappedComponent) {
      *
      * @param {number} perPage - new per page value
      */
-    onPageSizeChange = (perPage) => {
+    onChangePageSize = (perPage) => {
       this.setState((state) => dataEnhancer.changePageSize(state, perPage));
     }
 
@@ -112,14 +123,14 @@ export default function dataTableEnhancer(WrappedComponent) {
      * @param {number} from - from index
      * @param {number} to - to index
      */
-    onColumnDrag = (from, to) => {
-      const { onDragColumn } = this.props;
+    onDragColumn = (from, to) => {
+      const { onDragColumnCallback } = this.props;
 
       this.setState(
         (state) => dataEnhancer.dragColumn(state, { from, to }),
         () => {
-          if (typeof onDragColumn === 'function') {
-            onDragColumn(this.state.columns);
+          if (typeof onDragColumnCallback === 'function') {
+            onDragColumnCallback(this.state.columns);
           }
         },
       );
@@ -130,14 +141,14 @@ export default function dataTableEnhancer(WrappedComponent) {
      *
      * @param {number|string} columnId - column id
      */
-    onToggleColumnsVisibility = (columnId) => {
-      const { onChangeColumnsVisibility } = this.props;
+    onToggleColumnVisibility = (columnId) => {
+      const { onToggleColumnVisibilityCallback } = this.props;
 
       this.setState(
         (state) => dataEnhancer.toggleColumnVisibility(state, columnId),
         () => {
-          if (typeof onChangeColumnsVisibility === 'function') {
-            onChangeColumnsVisibility(this.state.columns);
+          if (typeof onToggleColumnVisibilityCallback === 'function') {
+            onToggleColumnVisibilityCallback(this.state.columns);
           }
         },
       );
@@ -147,9 +158,9 @@ export default function dataTableEnhancer(WrappedComponent) {
       const newProps = {
         onSort: this.onSort,
         onChangePage: this.onChangePage,
-        onPageSizeChange: this.onPageSizeChange,
-        onColumnDrag: this.onColumnDrag,
-        onToggleColumnsVisibility: this.onToggleColumnsVisibility,
+        onChangePageSize: this.onChangePageSize,
+        onDragColumn: this.onDragColumn,
+        onToggleColumnVisibility: this.onToggleColumnVisibility,
         onFilter: this.onFilter,
       };
 

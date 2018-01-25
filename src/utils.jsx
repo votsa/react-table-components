@@ -20,3 +20,9 @@
 
 // Ignore case and trim whitespaces
 export const ignoreCase = (value) => value.toUpperCase().trim();
+
+export const showDeprecatedMessage = (message) => {
+  if (process.env.NODE_ENV !== 'production') {
+    console.warn(`Warning: ${message}`)
+  }
+}

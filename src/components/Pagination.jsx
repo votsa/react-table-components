@@ -4,7 +4,8 @@ const cancelEvent = (e) => e.preventDefault();
 
 export default class Pagination extends Component {
   static defaultProps = {
-    showPages: 5,
+    showPages: 5,  // deprecated
+    visiblePages: 5,
     perPage: 10,
     currentPage: 0,
     className: '',
@@ -22,7 +23,7 @@ export default class Pagination extends Component {
       PropTypes.number,
     ]).isRequired,
     currentPage: PropTypes.number.isRequired,
-    showPages: PropTypes.number,
+    visiblePages: PropTypes.number,
     className: PropTypes.string,
     btnClassName: PropTypes.string,
     btnActiveClassName: PropTypes.string,
@@ -34,7 +35,7 @@ export default class Pagination extends Component {
     return this.props.total !== nextProps.total ||
       this.props.perPage !== nextProps.perPage ||
       this.props.currentPage !== nextProps.currentPage ||
-      this.props.showPages !== nextProps.showPages;
+      this.props.visiblePages !== nextProps.visiblePages;
   }
 
   onChangePage = (pageNumber, e) => {
@@ -47,7 +48,7 @@ export default class Pagination extends Component {
     const {
       total,
       perPage,
-      showPages,
+      visiblePages,
       currentPage,
       btnClassName,
       prevBtnComponent,
@@ -60,19 +61,19 @@ export default class Pagination extends Component {
     }
 
     const totalPages = Math.ceil(total / perPage);
-    const diff = Math.floor(showPages / 2);
+    const diff = Math.floor(visiblePages / 2);
     let start = Math.max(currentPage - diff, 0);
-    const end = Math.min(start + showPages, totalPages);
+    const end = Math.min(start + visiblePages, totalPages);
     let buttons = [];
     let btnEvent;
     let isCurrent;
     let btnClass;
 
-    if (totalPages >= showPages && end >= totalPages) {
-      start = totalPages - showPages;
+    if (totalPages >= visiblePages && end >= totalPages) {
+      start = totalPages - visiblePages;
     }
 
-    if (end < showPages) {
+    if (end < visiblePages) {
       start = 0;
     }
 
@@ -128,7 +129,7 @@ export default class Pagination extends Component {
       ].concat(buttons);
     }
 
-    if (end > showPages) {
+    if (end > visiblePages) {
       buttons = [
         <li key="first" className={!isNotFirst ? 'disabled' : null}>
           <a
