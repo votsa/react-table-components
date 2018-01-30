@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { showDeprecatedMessage } from '../utils';
+import { CLASS_NAMES } from '../constants';
 
 export default class PageSizeSelector extends Component {
   static defaultProps = {
@@ -57,10 +58,10 @@ export default class PageSizeSelector extends Component {
     } = this.props;
 
     return (
-      <div className={`rtc-page-size-selector ${className}`}>
+      <div className={`${CLASS_NAMES.PAGE_SIZE_SELECTOR} ${className}`}>
         <select
           id="page-size-selector"
-          className={`rtc-page-size-selector_control ${controlClassName}`}
+          className={`${CLASS_NAMES.PAGE_SIZE_SELECTOR_CONTROL} ${controlClassName}`}
           onChange={this.handleChangePageSize}
           value={perPage}
         >
@@ -70,7 +71,7 @@ export default class PageSizeSelector extends Component {
         </select>
         <label
           htmlFor="page-size-selector"
-          className={`rtc-page-size-selector_label ${labelClassName}`}
+          className={`${CLASS_NAMES.PAGE_SIZE_SELECTOR_LABEL} ${labelClassName}`}
         >
           {label}
         </label>

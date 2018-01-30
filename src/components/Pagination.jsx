@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { CLASS_NAMES } from '../constants';
 
 const cancelEvent = (e) => e.preventDefault();
 
@@ -202,7 +203,7 @@ export default class Pagination extends Component {
     ]);
 
     return (
-      <ul className={`rtc-pagination ${this.props.className}`}>
+      <ul className={`${CLASS_NAMES.PAGINATION} ${this.props.className}`}>
         {buttons}
       </ul>
     );

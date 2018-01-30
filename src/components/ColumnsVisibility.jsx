@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { showDeprecatedMessage } from '../utils';
+import { CLASS_NAMES } from '../constants';
 
 export default class ColumnsVisibility extends Component {
   static defaultProps = {
@@ -94,16 +95,16 @@ export default class ColumnsVisibility extends Component {
 
     return (
       <div
-        className={`rtc-columns-visibility ${className} ${active ? 'active' : ''}`}
+        className={`${CLASS_NAMES.COLUMNS_VISIBILITY} ${className} ${active ? 'active' : ''}`}
         ref={(node) => { this.node = node; }}
       >
         <button
-          className={`rtc-columns-visibility_btn ${btnClassName} ${active ? 'active' : ''}`}
+          className={`${CLASS_NAMES.COLUMNS_VISIBILITY_BTN} ${btnClassName} ${active ? 'active' : ''}`}
           onClick={this.handleClick}
         >
           {iconClassName && <span className={iconClassName} />} {btnText}
         </button>
-        <div className={`rtc-columns-visibility_popup ${popupClassName}`}>
+        <div className={`${CLASS_NAMES.COLUMNS_VISIBILITY_POPUP} ${popupClassName}`}>
           {columnsArray.map((col) => {
             if (col.alwaysVisible) {
               return null;

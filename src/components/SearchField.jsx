@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import debounce from 'lodash/debounce';
+import { CLASS_NAMES } from '../constants';
 
 const debouncedEvent = debounce((callback) => callback(), 200);
 
@@ -61,16 +62,19 @@ export default class SearchField extends Component {
     const { value } = this.state;
 
     return (
-      <div className={`rtc-search-field ${className} ${value ? activeClassName : ''}`}>
+      <div className={`${CLASS_NAMES.SEARCH_FIELD} ${className} ${value ? activeClassName : ''}`}>
         {label &&
-          <label htmlFor="search-field" className={`rtc-search-field_label ${labelClassName}`}>
+          <label
+            htmlFor="search-field"
+            className={`${CLASS_NAMES.SEARCH_FIELD_LABEL} ${labelClassName}`}
+          >
             {label}
           </label>
         }
         <input
           id="search-field"
           type="search"
-          className={`rtc-search-field_control ${controlClassName}`}
+          className={`${CLASS_NAMES.SEARCH_FIELD_CONTROL} ${controlClassName}`}
           value={value}
           onChange={this.handleChange}
         />
