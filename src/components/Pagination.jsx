@@ -11,8 +11,8 @@ export default class Pagination extends Component {
     className: '',
     btnClassName: '',
     btnActiveClassName: '',
-    prevBtnComponent: <span className="fa fa-angle-left" />,
-    nextBtnComponent: <span className="fa fa-angle-right" />,
+    prevBtnComponent: <span>Prev</span>,
+    nextBtnComponent: <span>Next</span>,
   }
 
   static propTypes = {
@@ -38,7 +38,7 @@ export default class Pagination extends Component {
       this.props.visiblePages !== nextProps.visiblePages;
   }
 
-  onChangePage = (pageNumber, e) => {
+  handleChangePage = (pageNumber, e) => {
     e.preventDefault();
 
     this.props.onChangePage(pageNumber);
@@ -82,7 +82,7 @@ export default class Pagination extends Component {
       if (isCurrent) {
         btnEvent = cancelEvent;
       } else {
-        btnEvent = (e) => this.onChangePage(i, e);
+        btnEvent = (e) => this.handleChangePage(i, e);
       }
 
       btnClass = btnClassName || '';
@@ -109,10 +109,10 @@ export default class Pagination extends Component {
 
     const isNotFirst = currentPage > 0;
     const isNotLast = currentPage < totalPages - 1;
-    const firstHandler = isNotFirst ? (e) => this.onChangePage(0, e) : cancelEvent;
-    const prevHandler = isNotFirst ? (e) => this.onChangePage(currentPage - 1, e) : cancelEvent;
-    const nextHandler = isNotLast ? (e) => this.onChangePage(currentPage + 1, e) : cancelEvent;
-    const lastHandler = isNotLast ? (e) => this.onChangePage(totalPages - 1, e) : cancelEvent;
+    const firstHandler = isNotFirst ? (e) => this.handleChangePage(0, e) : cancelEvent;
+    const prevHandler = isNotFirst ? (e) => this.handleChangePage(currentPage - 1, e) : cancelEvent;
+    const nextHandler = isNotLast ? (e) => this.handleChangePage(currentPage + 1, e) : cancelEvent;
+    const lastHandler = isNotLast ? (e) => this.handleChangePage(totalPages - 1, e) : cancelEvent;
 
     if (start >= diff) {
       buttons = [

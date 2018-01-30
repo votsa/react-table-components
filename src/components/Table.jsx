@@ -86,11 +86,11 @@ export default class Table extends Component {
   }
 
   /**
-   * On drag start
+   * Handle drag start
    *
    * @param {object} e - event object
    */
-  dragStart = (e) => {
+  handleDragStart = (e) => {
     this.dragged = e.currentTarget;
     // Copy dragged element's content to draggable container
     this.dragContainer.innerHTML = this.dragged.innerHTML;
@@ -101,11 +101,11 @@ export default class Table extends Component {
   }
 
   /**
-   * On drag end
+   * Handle drag end
    *
    * @param {object} e - event object
    */
-  dragEnd = () => {
+  handleDragEnd = () => {
     const { onColumnDrag, onDragColumn } = this.props;
 
     const from = Number(this.dragged.dataset.index);
@@ -123,11 +123,11 @@ export default class Table extends Component {
   }
 
   /**
-   * On drag over
+   * Handle drag over
    *
    * @param {object} e - event object
    */
-  dragOver = (e) => {
+  handleDragOver = (e) => {
     e.preventDefault();
 
     if (this.props.draggable) {
@@ -163,7 +163,7 @@ export default class Table extends Component {
   /**
    * On drag leave
    */
-  dragLeave = () => {
+  handleDragLeave = () => {
     this.cleanUpOverElement();
   }
 
@@ -193,8 +193,13 @@ export default class Table extends Component {
       draggable,
     } = this.props;
 
+    const className =
+      col.headerClass
+        ? `${col.headerClass} ${c.CLASS_NAMES.HEADING}`
+        : c.CLASS_NAMES.HEADING;
+
     const headerProps = {
-      className: col.headerClass ? `${col.headerClass} heading` : 'heading',
+      className,
     };
 
     const orderString =
@@ -213,7 +218,7 @@ export default class Table extends Component {
         prop: col.prop,
       });
 
-      headerProps.className += ' sortable';
+      headerProps.className += ` ${c.CLASS_NAMES.SORTABLE}`;
 
       if (sortBy.prop === col.prop) {
         headerProps.className += ` ${sortBy.order}`;
@@ -222,9 +227,9 @@ export default class Table extends Component {
 
     if (draggable && col.draggable !== false) {
       headerProps.draggable = true;
-      headerProps.onDragStart = this.dragStart;
-      headerProps.onDragEnd = this.dragEnd;
-      headerProps.onDragLeave = this.dragLeave;
+      headerProps.onDragStart = this.handleDragStart;
+      headerProps.onDragEnd = this.handleDragEnd;
+      headerProps.onDragLeave = this.handleDragLeave;
     }
 
     return headerProps;
@@ -259,6 +264,7 @@ export default class Table extends Component {
     const {
       dataArray,
       columns,
+      className,
     } = this.props;
 
     const headers = columns.map((col, index) => {
@@ -303,7 +309,10 @@ export default class Table extends Component {
     });
 
     return (
-      <table className={`rtc-table ${this.props.className}`} onDragOver={this.dragOver}>
+      <table
+        className={`${c.CLASS_NAMES.TABLE} ${className}`}
+        onDragOver={this.handleDragOver}
+      >
         <thead>
           <tr>
             {headers}
@@ -312,7 +321,12 @@ export default class Table extends Component {
         <tbody>
           {rows.length ? rows :
           <tr>
-            <td colSpan={columns.filter((col) => col.visible).length} className="no-data">No data</td>
+            <td
+              colSpan={columns.filter((col) => col.visible).length}
+              className={c.CLASS_NAMES.NO_DATA}
+            >
+              No data
+            </td>
           </tr>
           }
         </tbody>

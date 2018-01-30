@@ -3,6 +3,8 @@ import { showDeprecatedMessage } from '../utils';
 
 export default class PageSizeSelector extends Component {
   static defaultProps = {
+    className: '',
+    labelClassName: '',
     label: 'records per page',
     perPage: 10,
     controlClassName: '',
@@ -10,6 +12,8 @@ export default class PageSizeSelector extends Component {
   }
 
   static propTypes = {
+    className: PropTypes.string,
+    labelClassName: PropTypes.string,
     onPageSizeChange: PropTypes.func, // deprecated
     onChangePageSize: PropTypes.func, // TODO: use required
     perPage: PropTypes.oneOfType([
@@ -30,7 +34,7 @@ export default class PageSizeSelector extends Component {
     }
   }
 
-  onChangePageSize = (e) => {
+  handleChangePageSize = (e) => {
     const value = e.target.value;
 
     // TODO: cleanup
@@ -43,6 +47,8 @@ export default class PageSizeSelector extends Component {
 
   render() {
     const {
+      className,
+      labelClassName,
       controlClassName,
       label,
       pageSizeOptions,
@@ -50,11 +56,11 @@ export default class PageSizeSelector extends Component {
     } = this.props;
 
     return (
-      <div className="rtc-page-size-selector">
+      <div className={`rtc-page-size-selector ${className}`}>
         <select
           id="page-size-selector"
-          className={`rtc-page-size-selector-control ${controlClassName}`}
-          onChange={this.onChangePageSize}
+          className={`rtc-page-size-selector_control ${controlClassName}`}
+          onChange={this.handleChangePageSize}
           value={perPage}
         >
           {pageSizeOptions.map((item) =>
@@ -63,7 +69,7 @@ export default class PageSizeSelector extends Component {
         </select>
         <label
           htmlFor="page-size-selector"
-          className="rtc-page-size-selector-label"
+          className={`rtc-page-size-selector_label ${labelClassName}`}
         >
           {label}
         </label>

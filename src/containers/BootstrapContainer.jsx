@@ -128,6 +128,8 @@ export class BootstrapContainer extends Component {
               total={payload.total}
               perPage={payload.perPage}
               onChangePage={onChangePage}
+              prevBtnComponent={<span className="fa fa-angle-left" />}
+              nextBtnComponent={<span className="fa fa-angle-right" />}
             />
           </div>
         </div>

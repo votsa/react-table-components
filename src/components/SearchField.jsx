@@ -33,7 +33,7 @@ export default class SearchField extends Component {
     };
   }
 
-  onChange = (e) => {
+  handleChange = (e) => {
     const {
       onChange,
       filterKey,
@@ -62,16 +62,16 @@ export default class SearchField extends Component {
     return (
       <div className={`rtc-search-field ${className} ${value ? activeClassName : ''}`}>
         {label &&
-          <label htmlFor="search-field" className={`rtc-search-field-label ${labelClassName}`}>
+          <label htmlFor="search-field" className={`rtc-search-field_label ${labelClassName}`}>
             {label}
           </label>
         }
         <input
           id="search-field"
           type="search"
-          className={`rtc-search-field-label ${controlClassName}`}
+          className={`rtc-search-field_control ${controlClassName}`}
           value={value}
-          onChange={this.onChange}
+          onChange={this.handleChange}
         />
       </div>
     );

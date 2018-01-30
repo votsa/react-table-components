@@ -3,15 +3,19 @@ import { showDeprecatedMessage } from '../utils';
 
 export default class ColumnsVisibility extends Component {
   static defaultProps = {
+    className: '',
     btnClassName: '',
     iconClassName: '',
+    popupClassName: '',
     btnText: 'Columns',
     footer: null,
     useAlphabeticalOrder: false,
   }
 
   static propTypes = {
+    className: PropTypes.string,
     btnClassName: PropTypes.string,
+    popupClassName: PropTypes.string,
     btnText: PropTypes.string,
     columns: PropTypes.arrayOf(PropTypes.object).isRequired,
     iconClassName: PropTypes.string,
@@ -70,12 +74,16 @@ export default class ColumnsVisibility extends Component {
   render() {
     const {
       columns,
+      className,
       btnClassName,
       iconClassName,
       btnText,
       footer,
       useAlphabeticalOrder,
+      popupClassName,
     } = this.props;
+
+    const { active } = this.state;
 
     const columnsArray = [].concat(columns);
 
@@ -85,16 +93,16 @@ export default class ColumnsVisibility extends Component {
 
     return (
       <div
-        className={`rtc-columns-visibility-container ${this.state.active ? 'active' : ''}`}
+        className={`rtc-columns-visibility ${className} ${active ? 'active' : ''}`}
         ref={(node) => { this.node = node; }}
       >
         <button
-          className={`${btnClassName} ${this.state.active ? 'active' : ''}`}
+          className={`rtc-columns-visibility_btn ${btnClassName} ${active ? 'active' : ''}`}
           onClick={this.handleClick}
         >
           {iconClassName && <span className={iconClassName} />} {btnText}
         </button>
-        <div className="rtc-columns-visibility-popup">
+        <div className={`rtc-columns-visibility_popup ${popupClassName}`}>
           {columnsArray.map((col) => {
             if (col.alwaysVisible) {
               return null;

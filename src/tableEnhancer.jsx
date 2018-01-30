@@ -72,11 +72,11 @@ export default function dataTableEnhancer(WrappedComponent) {
     }
 
     /**
-     * On sort
+     * Handle sort
      *
      * @param {object} sortBy - sorting object
      */
-    onSort = (sortBy) => {
+    handleSort = (sortBy) => {
       const { onSortCallback } = this.props;
 
       this.setState(
@@ -90,40 +90,40 @@ export default function dataTableEnhancer(WrappedComponent) {
     }
 
     /**
-     * On change page
+     * Handle change page
      *
      * @param {number} page - new page
      */
-    onChangePage = (page) => {
+    handleChangePage = (page) => {
       this.setState((state) => dataEnhancer.changePage(state, page));
     }
 
     /**
-     * On change page size
+     * Handle change page size
      *
      * @param {number} perPage - new per page value
      */
-    onChangePageSize = (perPage) => {
+    handleChangePageSize = (perPage) => {
       this.setState((state) => dataEnhancer.changePageSize(state, perPage));
     }
 
     /**
-     * On filter data
+     * Handle filter data
      *
      * @param {string} key - filter key
      * @param {string|number} value - filter value
      */
-    onFilter = (key, value) => {
+    handleFilter = (key, value) => {
       this.setState((state) => dataEnhancer.filterData(state, key, value));
     }
 
     /**
-     * On column drag
+     * Handle column drag
      *
      * @param {number} from - from index
      * @param {number} to - to index
      */
-    onDragColumn = (from, to) => {
+    handleDragColumn = (from, to) => {
       const { onDragColumnCallback } = this.props;
 
       this.setState(
@@ -137,11 +137,11 @@ export default function dataTableEnhancer(WrappedComponent) {
     }
 
     /**
-     * Toggle column visibility
+     * Handle toggle column visibility
      *
      * @param {number|string} columnId - column id
      */
-    onToggleColumnVisibility = (columnId) => {
+    handleToggleColumnVisibility = (columnId) => {
       const { onToggleColumnVisibilityCallback } = this.props;
 
       this.setState(
@@ -156,12 +156,12 @@ export default function dataTableEnhancer(WrappedComponent) {
 
     render() {
       const newProps = {
-        onSort: this.onSort,
-        onChangePage: this.onChangePage,
-        onChangePageSize: this.onChangePageSize,
-        onDragColumn: this.onDragColumn,
-        onToggleColumnVisibility: this.onToggleColumnVisibility,
-        onFilter: this.onFilter,
+        onSort: this.handleSort,
+        onChangePage: this.handleChangePage,
+        onChangePageSize: this.handleChangePageSize,
+        onDragColumn: this.handleDragColumn,
+        onToggleColumnVisibility: this.handleToggleColumnVisibility,
+        onFilter: this.handleFilter,
       };
 
       return <WrappedComponent {...newProps} {...this.props} {...this.state} />;
