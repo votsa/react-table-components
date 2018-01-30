@@ -102,7 +102,7 @@ exports[`<Table /> shows empty message if no data 1`] = `
   <tbody>
     <tr>
       <td
-        className="no-data"
+        className="rtc-no-data"
         colSpan={2}
       >
         No data

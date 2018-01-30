@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import * as dataEnhancer from './dataEnhancer';
 
 /**
@@ -53,12 +54,14 @@ export default function dataTableEnhancer(WrappedComponent) {
       onDragColumnCallback: null,
       onToggleColumnVisibilityCallback: null,
       onSortCallback: null,
+      onChangePageCallback: null,
     }
 
     static propTypes = {
       onDragColumnCallback: PropTypes.func,
       onToggleColumnVisibilityCallback: PropTypes.func,
       onSortCallback: PropTypes.func,
+      onChangePageCallback: PropTypes.func,
     }
 
     constructor(props) {
@@ -95,7 +98,16 @@ export default function dataTableEnhancer(WrappedComponent) {
      * @param {number} page - new page
      */
     handleChangePage = (page) => {
-      this.setState((state) => dataEnhancer.changePage(state, page));
+      const { onChangePageCallback } = this.props;
+
+      this.setState(
+        (state) => dataEnhancer.changePage(state, page),
+        () => {
+          if (typeof onChangePageCallback === 'function') {
+            onChangePageCallback(page);
+          }
+        },
+      );
     }
 
     /**

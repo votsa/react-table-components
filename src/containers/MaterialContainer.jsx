@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import tableEnhancer from '../tableEnhancer';
 import Table from '../components/Table';
 import Pagination from '../components/Pagination';

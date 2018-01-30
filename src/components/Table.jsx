@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import get from 'lodash/get';
 import * as c from '../constants';
 import { showDeprecatedMessage } from '../utils';

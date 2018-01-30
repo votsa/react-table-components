@@ -61,7 +61,8 @@ function BaseTable(data) {
         sortBy={sortBy}
         onDragColumnCallback={(cols) => console.log(cols)}
         onToggleColumnVisibilityCallback={(cols) => console.log(cols)}
-        onSortCallback={(sortBy) => console.log(sortBy)}
+        onSortCallback={(sortObj) => console.log(sortObj)}
+        onChangePageCallback={(nextPage) => console.log(nextPage)}
         generateRowProps={generateRowProps}
         pageSizeOptions={[5, 10, 50]}
         draggable
