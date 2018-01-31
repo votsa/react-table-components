@@ -9,7 +9,6 @@ module.exports = {
   },
   entry: {
     base_bootstrap: './base_bootstrap/index.jsx',
-    material: './material/index.jsx',
   },
   output: {
     filename: './[name]/entry.js',

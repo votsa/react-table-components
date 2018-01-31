@@ -11,6 +11,8 @@ export default class PageSizeSelector extends Component {
     perPage: 10,
     controlClassName: '',
     pageSizeOptions: [5, 10, 50],
+    onPageSizeChange: null,
+    onChangePageSize: null,
   }
 
   static propTypes = {

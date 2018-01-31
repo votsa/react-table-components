@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 import { BootstrapContainer } from 'react-table-components';
 
 import 'styles/styles';
+import './styles';
 
 const UserPic = (row) => (
   <div className="text-center">

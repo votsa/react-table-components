@@ -32,6 +32,7 @@ export default class Table extends Component {
     sortBy: {},
     className: null,
     generateRowProps: null,
+    noDataMessage: 'No data',
   }
 
   static propTypes = {
@@ -55,6 +56,7 @@ export default class Table extends Component {
       PropTypes.arrayOf(PropTypes.string),
       PropTypes.string,
     ]).isRequired,
+    noDataMessage: PropTypes.string,
   }
 
   constructor(props) {
@@ -266,6 +268,7 @@ export default class Table extends Component {
       dataArray,
       columns,
       className,
+      noDataMessage,
     } = this.props;
 
     const headers = columns.map((col, index) => {
@@ -326,7 +329,7 @@ export default class Table extends Component {
               colSpan={columns.filter((col) => col.visible).length}
               className={c.CLASS_NAMES.NO_DATA}
             >
-              No data
+              {noDataMessage}
             </td>
           </tr>
           }

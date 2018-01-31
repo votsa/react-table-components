@@ -8,7 +8,7 @@ exports[`<Table /> render table 1`] = `
   <thead>
     <tr>
       <th
-        className="heading"
+        className="rtc-heading"
         data-index={0}
         style={
           Object {
@@ -21,7 +21,7 @@ exports[`<Table /> render table 1`] = `
         </span>
       </th>
       <th
-        className="heading"
+        className="rtc-heading"
         data-index={1}
         style={
           Object {
@@ -72,7 +72,7 @@ exports[`<Table /> shows empty message if no data 1`] = `
   <thead>
     <tr>
       <th
-        className="heading"
+        className="rtc-heading"
         data-index={0}
         style={
           Object {
@@ -85,7 +85,7 @@ exports[`<Table /> shows empty message if no data 1`] = `
         </span>
       </th>
       <th
-        className="heading"
+        className="rtc-heading"
         data-index={1}
         style={
           Object {
