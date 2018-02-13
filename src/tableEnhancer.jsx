@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import * as dataEnhancer from './dataEnhancer';
 
 /**
@@ -50,13 +51,17 @@ export default function dataTableEnhancer(WrappedComponent) {
       sortBy: {},
       perPage: 10,
       currentPage: 0,
-      onDragColumn: null,
-      onChangeColumnsVisibility: null,
+      onDragColumnCallback: null,
+      onToggleColumnVisibilityCallback: null,
+      onSortCallback: null,
+      onChangePageCallback: null,
     }
 
     static propTypes = {
-      onDragColumn: PropTypes.func,
-      onChangeColumnsVisibility: PropTypes.func,
+      onDragColumnCallback: PropTypes.func,
+      onToggleColumnVisibilityCallback: PropTypes.func,
+      onSortCallback: PropTypes.func,
+      onChangePageCallback: PropTypes.func,
     }
 
     constructor(props) {
@@ -70,74 +75,92 @@ export default function dataTableEnhancer(WrappedComponent) {
     }
 
     /**
-     * On sort
+     * Handle sort
      *
      * @param {object} sortBy - sorting object
      */
-    onSort = (sortBy) => {
-      this.setState((state) => dataEnhancer.sortData(state, sortBy));
-    }
-
-    /**
-     * On change page
-     *
-     * @param {number} page - new page
-     */
-    onChangePage = (page) => {
-      this.setState((state) => dataEnhancer.changePage(state, page));
-    }
-
-    /**
-     * On change page size
-     *
-     * @param {number} perPage - new per page value
-     */
-    onPageSizeChange = (perPage) => {
-      this.setState((state) => dataEnhancer.changePageSize(state, perPage));
-    }
-
-    /**
-     * On filter data
-     *
-     * @param {string} key - filter key
-     * @param {string|number} value - filter value
-     */
-    onFilter = (key, value) => {
-      this.setState((state) => dataEnhancer.filterData(state, key, value));
-    }
-
-    /**
-     * On column drag
-     *
-     * @param {number} from - from index
-     * @param {number} to - to index
-     */
-    onColumnDrag = (from, to) => {
-      const { onDragColumn } = this.props;
+    handleSort = (sortBy) => {
+      const { onSortCallback } = this.props;
 
       this.setState(
-        (state) => dataEnhancer.dragColumn(state, { from, to }),
+        (state) => dataEnhancer.sortData(state, sortBy),
         () => {
-          if (typeof onDragColumn === 'function') {
-            onDragColumn(this.state.columns);
+          if (typeof onSortCallback === 'function') {
+            onSortCallback(sortBy);
           }
         },
       );
     }
 
     /**
-     * Toggle column visibility
+     * Handle change page
+     *
+     * @param {number} page - new page
+     */
+    handleChangePage = (page) => {
+      const { onChangePageCallback } = this.props;
+
+      this.setState(
+        (state) => dataEnhancer.changePage(state, page),
+        () => {
+          if (typeof onChangePageCallback === 'function') {
+            onChangePageCallback(page);
+          }
+        },
+      );
+    }
+
+    /**
+     * Handle change page size
+     *
+     * @param {number} perPage - new per page value
+     */
+    handleChangePageSize = (perPage) => {
+      this.setState((state) => dataEnhancer.changePageSize(state, perPage));
+    }
+
+    /**
+     * Handle filter data
+     *
+     * @param {string} key - filter key
+     * @param {string|number} value - filter value
+     */
+    handleFilter = (key, value) => {
+      this.setState((state) => dataEnhancer.filterData(state, key, value));
+    }
+
+    /**
+     * Handle column drag
+     *
+     * @param {number} from - from index
+     * @param {number} to - to index
+     */
+    handleDragColumn = (from, to) => {
+      const { onDragColumnCallback } = this.props;
+
+      this.setState(
+        (state) => dataEnhancer.dragColumn(state, { from, to }),
+        () => {
+          if (typeof onDragColumnCallback === 'function') {
+            onDragColumnCallback(this.state.columns);
+          }
+        },
+      );
+    }
+
+    /**
+     * Handle toggle column visibility
      *
      * @param {number|string} columnId - column id
      */
-    onToggleColumnsVisibility = (columnId) => {
-      const { onChangeColumnsVisibility } = this.props;
+    handleToggleColumnVisibility = (columnId) => {
+      const { onToggleColumnVisibilityCallback } = this.props;
 
       this.setState(
         (state) => dataEnhancer.toggleColumnVisibility(state, columnId),
         () => {
-          if (typeof onChangeColumnsVisibility === 'function') {
-            onChangeColumnsVisibility(this.state.columns);
+          if (typeof onToggleColumnVisibilityCallback === 'function') {
+            onToggleColumnVisibilityCallback(this.state.columns);
           }
         },
       );
@@ -145,12 +168,12 @@ export default function dataTableEnhancer(WrappedComponent) {
 
     render() {
       const newProps = {
-        onSort: this.onSort,
-        onChangePage: this.onChangePage,
-        onPageSizeChange: this.onPageSizeChange,
-        onColumnDrag: this.onColumnDrag,
-        onToggleColumnsVisibility: this.onToggleColumnsVisibility,
-        onFilter: this.onFilter,
+        onSort: this.handleSort,
+        onChangePage: this.handleChangePage,
+        onChangePageSize: this.handleChangePageSize,
+        onDragColumn: this.handleDragColumn,
+        onToggleColumnVisibility: this.handleToggleColumnVisibility,
+        onFilter: this.handleFilter,
       };
 
       return <WrappedComponent {...newProps} {...this.props} {...this.state} />;

@@ -11,4 +11,3 @@ export { default as PageSizeSelector } from './components/PageSizeSelector';
 export { default as ColumnsVisibility } from './components/ColumnsVisibility';
 // Containers
 export { default as BootstrapContainer } from './containers/BootstrapContainer';
-export { default as MaterialContainer } from './containers/MaterialContainer';

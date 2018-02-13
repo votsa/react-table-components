@@ -1,4 +1,6 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
+import { CLASS_NAMES } from '../constants';
 
 const RecordsCounter = (props) => {
   const {
@@ -11,7 +13,7 @@ const RecordsCounter = (props) => {
   const to = (Number(currentPage) * Number(perPage)) + Number(perPage);
 
   return (
-    <div className="rtc-records-counter">
+    <div className={CLASS_NAMES.RECORDS_COUNTER}>
       {`Showing ${from} to ${to < total ? to : total} of ${total} records`}
     </div>
   );

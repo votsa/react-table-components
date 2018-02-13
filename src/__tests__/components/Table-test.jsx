@@ -37,6 +37,7 @@ describe('<Table />', () => {
         keys="id"
         columns={columns}
         dataArray={[]}
+        noDataMessage="No data"
       />,
     );
 

@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 import { BootstrapContainer } from 'react-table-components';
 
 import 'styles/styles';
+import './styles';
 
 const UserPic = (row) => (
   <div className="text-center">
@@ -11,13 +12,13 @@ const UserPic = (row) => (
   </div>
 );
 
-const EditBtn = (row) => (
+const EditBtn = () => (
   <div className="text-center">
     <button className="btn btn-xs btn-success">Edit</button>
   </div>
 );
 
-const generateRowProps = row => {
+const generateRowProps = (row) => {
   const options = {};
 
   if (row.gender === 'Male') {
@@ -45,28 +46,35 @@ function BaseTable(data) {
     { id: 10, title: 'Action', render: EditBtn, width: '50px' },
   ];
 
+  const sortBy = {
+    prop: 'country.name',
+    order: 'asc',
+  };
+
   return (
     <div className="container">
       <br />
       <BootstrapContainer
         keys="id"
-        className="table table-bordered table-striped"
+        tableClassName="table table-bordered table-striped"
         columns={columns}
-        onDragColumn={columns => console.log(columns)}
-        onChangeColumnsVisibility={columns => console.log(columns)}
         dataArray={data}
-        draggable={true}
-        sortable={true}
-        sortBy={{ prop: 'country.name', order: 'asc' }}
+        sortBy={sortBy}
+        onDragColumnCallback={(cols) => console.log(cols)}
+        onToggleColumnVisibilityCallback={(cols) => console.log(cols)}
+        onSortCallback={(sortObj) => console.log(sortObj)}
+        onChangePageCallback={(nextPage) => console.log(nextPage)}
         generateRowProps={generateRowProps}
-        pageSizeOptions={[5, 10, 50, 100]}
+        pageSizeOptions={[5, 10, 50]}
+        draggable
+        sortable
       />
     </div>
   );
 }
 
 fetch('/data.json')
-  .then(res => res.json())
+  .then((res) => res.json())
   .then((rows) => {
     ReactDOM.render(BaseTable(rows), document.getElementById('app'));
   });

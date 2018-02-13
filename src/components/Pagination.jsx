@@ -1,17 +1,20 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { CLASS_NAMES } from '../constants';
 
 const cancelEvent = (e) => e.preventDefault();
 
 export default class Pagination extends Component {
   static defaultProps = {
-    showPages: 5,
+    showPages: 5,  // deprecated
+    visiblePages: 5,
     perPage: 10,
     currentPage: 0,
     className: '',
     btnClassName: '',
     btnActiveClassName: '',
-    prevBtnComponent: <span className="fa fa-angle-left" />,
-    nextBtnComponent: <span className="fa fa-angle-right" />,
+    prevBtnComponent: <span>Prev</span>,
+    nextBtnComponent: <span>Next</span>,
   }
 
   static propTypes = {
@@ -22,7 +25,7 @@ export default class Pagination extends Component {
       PropTypes.number,
     ]).isRequired,
     currentPage: PropTypes.number.isRequired,
-    showPages: PropTypes.number,
+    visiblePages: PropTypes.number,
     className: PropTypes.string,
     btnClassName: PropTypes.string,
     btnActiveClassName: PropTypes.string,
@@ -34,10 +37,10 @@ export default class Pagination extends Component {
     return this.props.total !== nextProps.total ||
       this.props.perPage !== nextProps.perPage ||
       this.props.currentPage !== nextProps.currentPage ||
-      this.props.showPages !== nextProps.showPages;
+      this.props.visiblePages !== nextProps.visiblePages;
   }
 
-  onChangePage = (pageNumber, e) => {
+  handleChangePage = (pageNumber, e) => {
     e.preventDefault();
 
     this.props.onChangePage(pageNumber);
@@ -47,7 +50,7 @@ export default class Pagination extends Component {
     const {
       total,
       perPage,
-      showPages,
+      visiblePages,
       currentPage,
       btnClassName,
       prevBtnComponent,
@@ -60,19 +63,19 @@ export default class Pagination extends Component {
     }
 
     const totalPages = Math.ceil(total / perPage);
-    const diff = Math.floor(showPages / 2);
+    const diff = Math.floor(visiblePages / 2);
     let start = Math.max(currentPage - diff, 0);
-    const end = Math.min(start + showPages, totalPages);
+    const end = Math.min(start + visiblePages, totalPages);
     let buttons = [];
     let btnEvent;
     let isCurrent;
     let btnClass;
 
-    if (totalPages >= showPages && end >= totalPages) {
-      start = totalPages - showPages;
+    if (totalPages >= visiblePages && end >= totalPages) {
+      start = totalPages - visiblePages;
     }
 
-    if (end < showPages) {
+    if (end < visiblePages) {
       start = 0;
     }
 
@@ -81,7 +84,7 @@ export default class Pagination extends Component {
       if (isCurrent) {
         btnEvent = cancelEvent;
       } else {
-        btnEvent = (e) => this.onChangePage(i, e);
+        btnEvent = (e) => this.handleChangePage(i, e);
       }
 
       btnClass = btnClassName || '';
@@ -108,10 +111,10 @@ export default class Pagination extends Component {
 
     const isNotFirst = currentPage > 0;
     const isNotLast = currentPage < totalPages - 1;
-    const firstHandler = isNotFirst ? (e) => this.onChangePage(0, e) : cancelEvent;
-    const prevHandler = isNotFirst ? (e) => this.onChangePage(currentPage - 1, e) : cancelEvent;
-    const nextHandler = isNotLast ? (e) => this.onChangePage(currentPage + 1, e) : cancelEvent;
-    const lastHandler = isNotLast ? (e) => this.onChangePage(totalPages - 1, e) : cancelEvent;
+    const firstHandler = isNotFirst ? (e) => this.handleChangePage(0, e) : cancelEvent;
+    const prevHandler = isNotFirst ? (e) => this.handleChangePage(currentPage - 1, e) : cancelEvent;
+    const nextHandler = isNotLast ? (e) => this.handleChangePage(currentPage + 1, e) : cancelEvent;
+    const lastHandler = isNotLast ? (e) => this.handleChangePage(totalPages - 1, e) : cancelEvent;
 
     if (start >= diff) {
       buttons = [
@@ -128,7 +131,7 @@ export default class Pagination extends Component {
       ].concat(buttons);
     }
 
-    if (end > showPages) {
+    if (end > visiblePages) {
       buttons = [
         <li key="first" className={!isNotFirst ? 'disabled' : null}>
           <a
@@ -200,7 +203,7 @@ export default class Pagination extends Component {
     ]);
 
     return (
-      <ul className={`rtc-pagination ${this.props.className}`}>
+      <ul className={`${CLASS_NAMES.PAGINATION} ${this.props.className}`}>
         {buttons}
       </ul>
     );

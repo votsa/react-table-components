@@ -1,17 +1,4 @@
-.rtc-content-row {
-  margin-bottom: 15px;
-}
-
-.rtc-table-responsive {
-  margin: -5px;
-}
-
-.rtc-table-container {
-  padding: 5px;
-}
-
 .rtc-table {
-  margin: 0;
   width: 100%;
 }
 
@@ -23,14 +10,14 @@
   background: #f9f9f9;
 }
 
-.rtc-table th.sortable span {
+.rtc-sortable_th span {
   position: relative;
   display: block;
   padding-right: 12px;
 }
 
-.rtc-table th.sortable span:after,
-.rtc-table th.sortable span:before {
+.rtc-sortable_th span:after,
+.rtc-sortable_th span:before {
   content: '';
   border-left: 3px solid transparent;
   border-right: 3px solid transparent;
@@ -42,33 +29,33 @@
   cursor: pointer;
 }
 
-.rtc-table th.sortable span:after {
+.rtc-sortable_th span:after {
   border-top: 5px solid #ddd;
   top: 12px;
 }
 
-.rtc-table th.sortable span:before {
+.rtc-sortable_th span:before {
   border-bottom: 5px solid #ddd;
   top: 4px;
 }
 
-.rtc-table th.sortable.asc span:after {
+.rtc-sortable_th.asc span:after {
   display: none;
 }
 
-.rtc-table th.sortable.asc span:before {
+.rtc-sortable_th.asc span:before {
   border-bottom-color: #666;
 }
 
-.rtc-table th.sortable.desc span:before {
+.rtc-sortable_th.desc span:before {
   display: none;
 }
 
-.rtc-table th.sortable.desc span:after {
+.rtc-sortable_th.desc span:after {
   border-top-color: #666;
 }
 
-.rtc-table .no-data {
+.rtc-no-data {
   text-align: center;
 }
 
@@ -134,13 +121,13 @@
   cursor: pointer;
 }
 
-.rtc-columns-visibility-container {
+.rtc-columns-visibility {
   position: relative;
   z-index: 10;
   float: right;
 }
 
-.rtc-columns-visibility-popup {
+.rtc-columns-visibility_popup {
   display: none;
   position: absolute;
   background: #fff;
@@ -154,15 +141,15 @@
   box-shadow: 1px 1px 3px 0px rgba(100, 100, 100, 0.2);
 }
 
-.active .rtc-columns-visibility-popup {
+.active .rtc-columns-visibility_popup {
   display: block;
 }
 
-.rtc-columns-visibility-popup .checkbox {
+.rtc-columns-visibility_popup .checkbox {
   margin: 3px 0;
 }
 
-.rtc-columns-visibility-container button span {
+.rtc-columns-visibility_container button span {
   margin-right: 2px;
 }
 
@@ -170,12 +157,12 @@
   display: inline-block;
 }
 
-.rtc-page-size-selector .rtc-page-size-selector-control {
+.rtc-page-size-selector_control {
   width: 70px;
   display: inline-block;
 }
 
-.rtc-page-size-selector .rtc-page-size-selector-label {
+.rtc-page-size-selector_label {
   margin-left: 5px;
   font-weight: normal;
 }
@@ -185,7 +172,7 @@
   margin-left: 15px;
 }
 
-.rtc-search-field-label {
+.rtc-search-field_label {
   margin: 0 5px 0 0;
   font-weight: normal;
   outline: none;

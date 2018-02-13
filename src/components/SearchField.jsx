@@ -1,7 +1,9 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import debounce from 'lodash/debounce';
+import { CLASS_NAMES } from '../constants';
 
-const fireEvent = debounce((callback) => callback(), 200);
+const debouncedEvent = debounce((callback) => callback(), 200);
 
 export default class SearchField extends Component {
   static defaultProps = {
@@ -10,12 +12,13 @@ export default class SearchField extends Component {
     className: '',
     controlClassName: '',
     labelClassName: '',
-    activeClassName: '',
+    activeClassName: 'active',
+    filterKey: 'globalSearch',
   }
 
   static propTypes = {
     onChange: PropTypes.func.isRequired,
-    filterKey: PropTypes.string.isRequired,
+    filterKey: PropTypes.string,
     label: PropTypes.string,
     value: PropTypes.string,
     className: PropTypes.string,
@@ -32,7 +35,7 @@ export default class SearchField extends Component {
     };
   }
 
-  onChange = (e) => {
+  handleChange = (e) => {
     const {
       onChange,
       filterKey,
@@ -44,7 +47,7 @@ export default class SearchField extends Component {
       value,
     });
 
-    fireEvent(() => onChange(filterKey, value));
+    debouncedEvent(() => onChange(filterKey, value));
   }
 
   render() {
@@ -56,19 +59,24 @@ export default class SearchField extends Component {
       activeClassName,
     } = this.props;
 
+    const { value } = this.state;
+
     return (
-      <div className={`rtc-search-field ${className} ${this.state.value ? activeClassName : ''}`}>
+      <div className={`${CLASS_NAMES.SEARCH_FIELD} ${className} ${value ? activeClassName : ''}`}>
         {label &&
-          <label htmlFor="search-field" className={`rtc-search-field-label ${labelClassName}`}>
+          <label
+            htmlFor="search-field"
+            className={`${CLASS_NAMES.SEARCH_FIELD_LABEL} ${labelClassName}`}
+          >
             {label}
           </label>
         }
         <input
           id="search-field"
           type="search"
-          className={`rtc-search-field-label ${controlClassName}`}
-          value={this.state.value}
-          onChange={this.onChange}
+          className={`${CLASS_NAMES.SEARCH_FIELD_CONTROL} ${controlClassName}`}
+          value={value}
+          onChange={this.handleChange}
         />
       </div>
     );
