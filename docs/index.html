@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" />
 
-    <link rel="stylesheet" href="https://unpkg.com/react-table-components@0.0.12/styles/styles.css" />
+    <link rel="stylesheet" href="../dist/react-table-components.min.css" />
     <link rel="stylesheet" href="./css/styles.css" />
   </head>
   <body>
@@ -21,10 +21,10 @@
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fetch/2.0.2/fetch.js"></script>
-    <script src="https://npmcdn.com/react@15.2.1/dist/react.min.js"></script>
-    <script src="https://npmcdn.com/react-dom@15.2.1/dist/react-dom.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.24.0/babel.min.js"></script>
-    <script src="https://unpkg.com/react-table-components@0.0.12/dist/react-table-components.min.js"></script>
+    <script src="../dist/react-table-components.min.js"></script>
 
     <script src="data.js"></script>
 
@@ -56,33 +56,40 @@
           return options;
         };
 
-        function BaseTable(data) {
-          const columns = [
-            { id: 1, title: 'Avatar', render: UserPic, visible: false, width: '50px' },
-            { id: 2, title: 'First name', prop: 'first_name', width: '150px' },
-            { id: 3, title: 'Last name', prop: 'last_name', width: '150px' },
-            { id: 4, title: 'Email', prop: 'email' },
-            { id: 5, title: 'Gender', prop: 'gender', width: '85px' },
-            { id: 6, title: 'Ip address', prop: 'ip_address', width: '150px' },
-            { id: 7, title: 'Country', prop: 'country.name', width: '150px' },
-            { id: 8, title: 'Code', prop: 'country.code', width: '80px' },
-            { id: 9, title: 'City', prop: 'city.name' },
-            { id: 10, title: 'Action', render: EditBtn, width: '50px' },
-          ];
+        const columns = [
+          { id: 1, title: 'Avatar', render: UserPic, visible: false, width: '50px' },
+          { id: 2, title: 'First name', prop: 'first_name', width: '150px' },
+          { id: 3, title: 'Last name', prop: 'last_name', width: '150px' },
+          { id: 4, title: 'Email', prop: 'email' },
+          { id: 5, title: 'Gender', prop: 'gender', width: '85px' },
+          { id: 6, title: 'Ip address', prop: 'ip_address', width: '150px' },
+          { id: 7, title: 'Country', prop: 'country.name', width: '150px' },
+          { id: 8, title: 'Code', prop: 'country.code', width: '80px' },
+          { id: 9, title: 'City', prop: 'city.name' },
+          { id: 10, title: 'Action', render: EditBtn, width: '50px' },
+        ];
 
+        const sortBy = {
+          prop: 'country.name',
+          order: 'asc',
+        };
+
+        function BaseTable(data) {
           return (
-            <ReactTableComponents.BootstrapContainer
+            <ReactTableComponents.BootstrapTableContainer
               keys="id"
-              className="table table-bordered table-striped"
+              tableClassName="table table-bordered table-striped"
               columns={columns}
-              onDragColumn={columns => console.log(columns)}
-              onChangeColumnsVisibility={columns => console.log(columns)}
               dataArray={data}
-              draggable={true}
-              sortable={true}
-              sortBy={{ prop: 'country.name', order: 'asc' }}
+              sortBy={sortBy}
+              onDragColumnCallback={(cols) => console.log(cols)}
+              onToggleColumnVisibilityCallback={(cols) => console.log(cols)}
+              onSortCallback={(sortObj) => console.log(sortObj)}
+              onChangePageCallback={(nextPage) => console.log(nextPage)}
               generateRowProps={generateRowProps}
-              pageSizeOptions={[5, 10, 50, 100]}
+              pageSizeOptions={[5, 10, 50]}
+              draggable
+              sortable
             />
           );
         }
