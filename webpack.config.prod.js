@@ -1,6 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
+const FileManagerPlugin = require('filemanager-webpack-plugin');
 
 module.exports = {
   entry: './src/index',
@@ -27,17 +28,17 @@ module.exports = {
           loader: 'babel-loader',
           query: {
             cacheDirectory: true,
-          }
-        }
-      ]
-    }]
+          },
+        },
+      ],
+    }],
   },
   resolve: {
     extensions: ['.js', '.jsx'],
   },
   plugins: [
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify('production')
+      'process.env.NODE_ENV': JSON.stringify('production'),
     }),
     new LodashModuleReplacementPlugin({
       shorthands: true,
@@ -47,7 +48,7 @@ module.exports = {
     new webpack.optimize.UglifyJsPlugin({
       minimize: true,
       output: {
-        comments: false
+        comments: false,
       },
       compressor: {
         pure_getters: true,
@@ -56,6 +57,22 @@ module.exports = {
         screw_ie8: true,
         warnings: false,
       },
+    }),
+    new FileManagerPlugin({
+      onEnd: [
+        {
+          copy: [
+            {
+              source: 'src/styles/index.css',
+              destination: 'dist/react-table-components.min.css',
+            },
+            {
+              source: 'src/styles/*',
+              destination: 'lib/styles/',
+            },
+          ],
+        },
+      ],
     }),
   ],
 };

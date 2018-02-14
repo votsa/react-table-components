@@ -12,8 +12,8 @@ export default class ColumnsVisibility extends Component {
     btnText: 'Columns',
     footer: null,
     useAlphabeticalOrder: false,
-    onToggleColumnsVisibility: false,
-    onToggleColumnVisibility: false,
+    onToggleColumnsVisibility: null,
+    onToggleColumnVisibility: null,
   }
 
   static propTypes = {
